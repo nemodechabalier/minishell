@@ -6,7 +6,7 @@
 #    By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/27 10:27:53 by nde-chab          #+#    #+#              #
-#    Updated: 2024/06/27 11:45:57 by nde-chab         ###   ########.fr        #
+#    Updated: 2024/09/17 15:31:29 by nde-chab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,22 +30,17 @@ FUNC_LIBFT = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
              ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c \
              ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
 
-FUNC_BONUS_LIBFT = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c \
-                   ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c \
-                   ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
-
 FUNC_FT_PRINTF = ft_printf.c ft_putchar.c ft_putstr.c ft_putnbr.c \
                  ft_print_base.c ft_putunbr.c 
 
 FUNC_GNL = get_next_line.c get_next_line_utils.c
 
 SRCS_LIBFT = $(addprefix $(SRC_DIR_LIBFT), $(FUNC_LIBFT))
-SRCS_BONUS_LIBFT = $(addprefix $(SRC_DIR_LIBFT), $(FUNC_BONUS_LIBFT))
 SRCS_FT_PRINTF = $(addprefix $(SRC_DIR_FT_PRINTF), $(FUNC_FT_PRINTF))
 SRCS_GNL = $(addprefix $(SRC_DIR_GNL), $(FUNC_GNL))
 
 SRCS = $(SRCS_LIBFT) $(SRCS_FT_PRINTF) $(SRCS_GNL)
-SRCSALL = $(SRCS) $(SRCS_BONUS_LIBFT)
+SRCSALL = $(SRCS)
 
 OBJS_DIR = obj/
 OBJS = $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.c=.o)))
@@ -68,10 +63,6 @@ $(OBJS_DIR)%.o: $(SRC_DIR_GNL)%.c
 $(NAME): $(OBJS)
 	ar -rcs $(NAME) $(OBJS)
 
-# Rule to add bonus files
-bonus: $(OBJS) $(OBJSALL)
-	ar -rcs $(NAME) $(OBJSALL)
-
 # Clean object files
 clean:
 	rm -rf $(OBJS_DIR)
@@ -86,4 +77,4 @@ re: fclean all
 # Default target
 all: $(NAME)
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re

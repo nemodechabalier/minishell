@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:39:56 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/17 14:05:02 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:35:21 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	init_path(char **paths, char **env)
 			paths = ft_split(env[i] + 5, ':');
 			if (!paths)
 				return (FAIL);
-			return (paths);
+			return (SUCCESS);
 		}
 		i++;
 	}
@@ -55,6 +55,7 @@ t_parsing	*init_parsing(void)
 		return (NULL);
 	parsing->input = NULL;
 	parsing->tokens = NULL;
+	return (parsing);
 }
 
 t_data	*init_data(void)

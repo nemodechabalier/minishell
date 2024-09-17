@@ -6,10 +6,10 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:47:25 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/17 15:07:37 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:43:26 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(int ac, char **av, char **env)
-{
-}
+//int	main(int ac, char **av, char **env)
+//{
+//}

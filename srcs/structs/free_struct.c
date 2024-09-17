@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:15:09 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/17 14:59:59 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:43:09 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,41 +15,43 @@
 void	ft_free_pipe(t_pipe **pipe)
 {
 	t_pipe	*temp;
+	t_pipe	*next;
 
 	temp = *pipe;
-	while ((*pipe)->next)
+	while (temp)
 	{
-		temp = (*pipe)->next;
-		free(*pipe);
-		pipe = temp;
+		next = temp->next;
+		free(temp);
+		temp = NULL;
+		temp = next;
 	}
-	free(*pipe);
-	pipe = NULL;
+	*pipe = NULL;
 }
 
 void	ft_free_list(t_list **list)
 {
-	t_pipe	*temp;
+	t_list	*temp;
+	t_list	*next;
 
 	temp = *list;
-	while ((*list)->next)
+	while (temp)
 	{
-		temp = (*list)->next;
-		free(*list);
-		list = temp;
+		next = temp->next;
+		free(temp);
+		temp = NULL;
+		temp = next;
 	}
-	free(*list);
-	list = NULL;
+	*list = NULL;
 }
 
 void	ft_free_cmd(t_cmd **cmd)
 {
-	if (pipe)
+	if ((*cmd)->pipe)
 		ft_free_pipe(&(*cmd)->pipe);
 	(*cmd)->pipe = NULL;
 	if ((*cmd)->cmds)
 		ft_free_str((*cmd)->cmds);
-	(*cmd)->cmds == NULL;
+	(*cmd)->cmds = NULL;
 	if ((*cmd)->paths)
 		ft_free_str((*cmd)->paths);
 	(*cmd)->paths = NULL;
@@ -73,7 +75,11 @@ void	ft_free_parsing(t_parsing **parsing)
 void	ft_free_data(t_data **data)
 {
 	if ((*data)->cmd)
-		ft_free_cmd((*data)->cmd);
+		ft_free_cmd(&(*data)->cmd);
 	if ((*data)->parsing)
-		ft_free_parsing((*data)->parsing);
+		ft_free_parsing(&(*data)->parsing);
+	(*data)->cmd = NULL;
+	(*data)->parsing = NULL;
+	free(*data);
+	*data = NULL;
 }

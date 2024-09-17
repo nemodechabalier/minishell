@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:10:34 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/17 15:19:46 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:34:55 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	token_add_back(t_list **lst, t_list *new)
 	t_list	*temp;
 
 	temp = *lst;
-	if (lst == NULL)
+	if (*lst == NULL)
 	{
 		*lst = new;
 		return ;
@@ -67,5 +67,5 @@ void	token_add_back(t_list **lst, t_list *new)
 		temp = temp->next;
 	}
 	temp->next = new;
-	new->prev = lst;
+	new->prev = temp;
 }

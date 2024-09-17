@@ -6,13 +6,13 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/17 15:05:38 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:43:18 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	recup_token(t_parsing *str)
-{
+//int	recup_token(t_parsing *str)
+//{
 		
-}
+//}
