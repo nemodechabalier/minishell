@@ -1,57 +1,61 @@
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
-#include "../../libft_all/ft_printf/ft_printf.h"
-#include "../../libft_all/libtf/libft.h"
-#include "../../libft_all/get_next_line/get_next_line.h"
-#include <readline/history.h>
-#include <readline/readline.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
+# include "../../libft_all/ft_printf/ft_printf.h"
+# include "../../libft_all/get_next_line/get_next_line.h"
+# include "../../libft_all/libtf/libft.h"
+# include <errno.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-typedef struct s_pipe t_pipe;
-typedef struct s_list t_list;
+# define FALSE 0
+# define TRUE 1
+# define FAIL -1
+# define SUCCESS 2
+
+typedef struct s_pipe	t_pipe;
+typedef struct s_list	t_list;
 
 typedef struct s_pipe
 {
-	int tab[2];
-	t_pipe *next;
-	t_pipe *prev;
-} t_pipe;
+	int					tab[2];
+	t_pipe				*next;
+	t_pipe				*prev;
+}						t_pipe;
 
 typedef struct s_cmd
 {
-	char **env;
-	char **paths;
-	char **cmds;
-	char *path_cmd;
-	t_pipe *pipe;
-} t_cmd;
+	char				**env;
+	char				**paths;
+	char				**cmds;
+	char				*cmd;
+	char				*path_cmd;
+	t_pipe				*pipe;
+}						t_cmd;
 
 typedef struct s_parsing
 {
-	char *input;
-	t_list *tokens;
-} t_parsing;
+	char				*input;
+	t_list				*tokens;
+}						t_parsing;
 
 typedef struct s_list
 {
-	char *token;
-	t_list *next;
-	t_list *prev;
-}	t_list;
+	char				*token;
+	t_list				*next;
+	t_list				*prev;
+}						t_list;
 
 typedef struct s_data
 {
-	t_parsing *parsing;
-	t_cmd *cmd;
-} t_data;
+	t_parsing			*parsing;
+	t_cmd				*cmd;
+}						t_data;
 
-#define FALSE 0
-#define TRUE 1
-#define FAIL -1
-#define SUCCESS 2
+void					ft_free_str(char **strs);
+void					ft_free_data(t_data **data);
 
 #endif
