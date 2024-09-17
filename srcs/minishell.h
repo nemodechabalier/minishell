@@ -23,7 +23,7 @@ typedef struct s_cmd
 	char **env;
 	char **paths;
 	char **cmds;
-	char *cmd;
+	char *path_cmd;
 	t_pipe *pipe;
 } t_cmd;
 
