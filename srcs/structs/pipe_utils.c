@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_utils.c                                       :+:      :+:    :+:   */
+/*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 12:10:34 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/17 14:13:35 by clmanouk         ###   ########.fr       */
+/*   Created: 2024/09/17 14:12:19 by clmanouk          #+#    #+#             */
+/*   Updated: 2024/09/17 14:57:47 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_lstdelone(t_list *lst)
+void	ft_lst_pipedelone(t_pipe *lst)
 {
 	if (lst == NULL)
 		free(lst);
 }
 
-int	ft_lstsize(t_list *lst)
+int	ft_lstsize_pipe(t_pipe *lst)
 {
-	t_list	*temp;
-	int			i;
+	t_pipe	*temp;
+	int		i;
 
 	i = 0;
 	temp = lst;
@@ -33,32 +33,33 @@ int	ft_lstsize(t_list *lst)
 	return (i);
 }
 
-t_list	*create_new_token(char *token)
+t_pipe	*create_new_pipe(void)
 {
-		t_list	*new;
+	t_pipe *new;
 
-	new = (t_list *)malloc(sizeof(t_list));
+	new = (t_pipe *)malloc(sizeof(t_pipe));
 	if (!new)
 		return (NULL);
-	new->token = token;
+	new->tab[0] = -1;
+	new->tab[1] = -1;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
 }
 
-void	token_add_front(t_list **lst, t_list *new)
+void	pipe_add_front(t_pipe *lst, t_pipe *new)
 {
-	if (*lst == NULL)
+	if (lst == NULL)
 	{
-		*lst = new;
+		lst = new;
 		return ;
 	}
-	new->next = *lst;
-	(*lst)->prev = new;
-	*lst = new;
+	new->next = lst;
+	lst->prev = new;
+	lst = new;
 }
 
-void	token_add_back(t_list *lst, t_list *new)
+void	pipe_add_back(t_pipe *lst, t_pipe *new)
 {
 
 	if (lst == NULL)
