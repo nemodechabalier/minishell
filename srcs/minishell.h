@@ -9,6 +9,7 @@
 #include <errno.h>
 
 typedef struct s_pipe t_pipe;
+typedef struct s_list t_list;
 
 typedef struct s_pipe
 {
@@ -29,8 +30,15 @@ typedef struct s_cmd
 typedef struct s_parsing
 {
 	char *input;
-	char **tokens;
+	t_list *tokens;
 } t_parsing;
+
+typedef struct s_list
+{
+	char *token;
+	t_list *next;
+	t_list *prev;
+}	t_list;
 
 typedef struct s_data
 {
