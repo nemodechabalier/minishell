@@ -6,11 +6,11 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:39:56 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/17 12:15:56 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:20:22 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 t_cmd	*init_cmd(char **env)
 {
