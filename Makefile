@@ -6,19 +6,19 @@
 #    By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/19 13:46:16 by nde-chab          #+#    #+#              #
-#    Updated: 2024/09/16 14:11:46 by nde-chab         ###   ########.fr        #
+#    Updated: 2024/09/17 11:39:37 by nde-chab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 LIBFT = libft_all/libft_printf_gnl.a
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g3 -
+FLAGS = -Wall -Wextra -Werror -g3 -lreadline -lncurses
 INCLUDES = -I .
 
 SRCS_DIR = srcs/
 
-FUNC = main.c
+FUNC = main.c struct_utils.c
 
 SRCS = $(addprefix $(SRCS_DIR), $(FUNC))
 
