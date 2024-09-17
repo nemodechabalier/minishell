@@ -1,6 +1,9 @@
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
+#include "../../libft_all/ft_printf/ft_printf.h"
+#include "../../libft_all/libtf/libft.h"
+#include "../../libft_all/get_next_line/get_next_line.h"
 #include <readline/history.h>
 #include <readline/readline.h>
 #include <stdio.h>
