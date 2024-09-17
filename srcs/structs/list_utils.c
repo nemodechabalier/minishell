@@ -6,7 +6,7 @@
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:10:34 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/17 12:31:10 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:56:26 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,20 @@ void	token_add_front(t_list **lst, t_list *new)
 	*lst = new;
 }
 
-void	token_add_back(t_list **lst, t_list *new)
+void	token_add_back(t_list *lst, t_list *new)
 {
-	
+
+	if (lst == NULL)
+	{
+		lst = new;
+		new->prev = NULL;
+		return ;
+	}
+	while (lst->next != NULL)
+	{
+		lst = lst->next;
+	}
+	lst->next = new;
+	new->prev = lst;
+	new->next = NULL;
 }
