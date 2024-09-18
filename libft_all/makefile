@@ -6,13 +6,13 @@
 #    By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/27 10:27:53 by nde-chab          #+#    #+#              #
-#    Updated: 2024/09/17 15:31:29 by nde-chab         ###   ########.fr        #
+#    Updated: 2024/09/18 16:41:03 by nde-chab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft_printf_gnl.a
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 INCLUDES = -I .
 
 # Source directories

@@ -15,6 +15,9 @@
 # define TRUE 1
 # define FAIL -1
 # define SUCCESS 2
+# define PATH_MAX 4096
+# define ERROR_UNCLOSE 10
+# define ERROR_D_PIPE 11
 
 typedef struct s_pipe	t_pipe;
 typedef struct s_list	t_list;
@@ -55,7 +58,30 @@ typedef struct s_data
 	t_cmd				*cmd;
 }						t_data;
 
+// free func
 void					ft_free_str(char **strs);
 void					ft_free_data(t_data **data);
+
+// token func
+int						logical_operator(char c);
+int						files_operator(char c);
+int						handle_quote(t_parsing *parsing, int start, int end);
+int						pars_token(t_parsing *parsing);
+int						handle_input(t_parsing *parsing);
+
+// struct func
+void					token_add_back(t_list **lst, t_list *new);
+t_list					*create_new_token(char *token);
+t_data					*init_all(char **env);
+
+void					ft_free_data(t_data **data);
+void					ft_free_parsing(t_parsing **parsing);
+void					ft_free_cmd(t_cmd **cmd);
+void					ft_free_list(t_list **list);
+void					ft_free_pipe(t_pipe **pipe);
+
+// debug func
+void					print_strs(char **strs);
+void					print_token(t_parsing *parsing);
 
 #endif

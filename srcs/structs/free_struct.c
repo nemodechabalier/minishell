@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:15:09 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/17 15:43:09 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/18 15:09:53 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	ft_free_parsing(t_parsing **parsing)
 
 void	ft_free_data(t_data **data)
 {
+	if (*data)
+		return ;
 	if ((*data)->cmd)
 		ft_free_cmd(&(*data)->cmd);
 	if ((*data)->parsing)

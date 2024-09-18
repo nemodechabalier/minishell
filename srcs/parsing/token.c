@@ -3,54 +3,92 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/17 18:02:38 by clmanouk         ###   ########.fr       */
+/*   Created: 2024/09/18 11:27:28 by nde-chab          #+#    #+#             */
+/*   Updated: 2024/09/18 19:12:13 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-#include "../includes/minishell.h"
-
-int	find_(char c)
+int	create_token(t_parsing *parsing, int i, int j)
 {
-	if (c == '"')
-		return (1);
-	else if (c == '|')
-		return (1);
-	else if (c == '>')
-		return (1);
-	else if (c == '<')
-		return (1);
-	else
-		return (0);
+	char	*str;
+	t_list	*list;
+
+	str = ft_substr(parsing->input, j, i - j);
+	if (!str)
+		return (FAIL);
+	list = create_new_token(str);
+	if (!list)
+		return (free(str), FAIL);
+	token_add_back(&parsing->tokens, list);
+	return (SUCCESS);
 }
 
-int	handle_input(t_parsing *parsing)
+int	find_token_cmd(t_parsing *parsing, int *i, int j)
 {
-	readline(parsing->input);
-	if (parsing->input != NULL && *parsing->input != NULL)
-		add_history(parsing->input);
-	return (0);
+	while (parsing->input[*i])
+	{
+		if (logical_operator(parsing->input[*i]) && handle_quote(parsing, j,
+				*i) == 0)
+		{
+			if (create_token(parsing, *i, j) == FAIL)
+				return (FAIL);
+			else
+				return (SUCCESS);
+		}
+		*i += 1;
+	}
+	if (handle_quote(parsing, j, *i) == 0)
+	{
+		if (create_token(parsing, *i, j) == FAIL)
+			return (FAIL);
+		else
+			return (SUCCESS);
+	}
+	return (ERROR_UNCLOSE);
 }
 
-int	handle_dquote(t_parsing *parsing)
+int	pars_token(t_parsing *parsing)
 {
 	int	i;
-	int	count;
+	int	j;
 
 	i = 0;
-	count = 0;
 	while (parsing->input[i])
 	{
-		if (parsing->input[i] == '"')
-			count++;
+		while (parsing->input[i] == ' ' && parsing->input[i])
+			i++;
+		j = i;
+		if (parsing->input[i] == '\0')
+			return(SUCCESS);
+		if (files_operator(parsing->input[i]))
+		{
+			while ((files_operator(parsing->input[i])
+					|| parsing->input[i] == ' ') && parsing->input[i])
+				i++;
+			if (parsing->input[i] == '\0')
+				return (SUCCESS);
+			while (parsing->input[i] != ' ' && parsing->input[i])
+				i++;
+			if (create_token(parsing, i, j) == FAIL)
+				return (FAIL);
+		}
+		else if (parsing->input[i] == '|')
+		{
+			if (parsing->input[i + 1] == '|')
+				return (ERROR_UNCLOSE);
+			if (create_token(parsing, i + 1, j) == FAIL)
+				return (FAIL);
+		}
+		else
+		{
+			find_token_cmd(parsing, &i, j);
+			i--;
+		}
 		i++;
 	}
-	if (count % 2 == 0)
-		return (1);
-	return (0);
+	return (SUCCESS);
 }
-
