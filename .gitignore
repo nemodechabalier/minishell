@@ -4,3 +4,4 @@ minishell
 test
 a.out
 *.o
+*.c
