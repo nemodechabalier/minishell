@@ -48,6 +48,7 @@ typedef struct s_parsing
 typedef struct s_list
 {
 	char				*token;
+	int					type;
 	t_list				*next;
 	t_list				*prev;
 }						t_list;

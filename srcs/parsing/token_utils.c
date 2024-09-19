@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/18 19:08:21 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:08:30 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,16 @@ int	handle_quote(t_parsing *parsing, int start, int end)
 	int		count;
 	char	c;
 
+	c = 0;
 	i = start;
 	count = 0;
 	while (parsing->input[i] && i < end)
 	{
 		if (parsing->input[i] == 27 || parsing->input[i] == '"')
-		{
-			c = parsing->input[i];
 			break ;
-		}
 		i++;
 	}
+	c = parsing->input[i];
 	if (end == i)
 		return (0);
 	i = start;
