@@ -6,65 +6,36 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:12:19 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/17 15:35:03 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/21 12:17:11 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_lstsize_pipe(t_pipe *lst)
+t_exec	*new_exec(void)
 {
-	t_pipe	*temp;
-	int		i;
+	t_exec	*exec;
 
-	i = 0;
-	temp = lst;
-	while (temp != NULL)
-	{
-		temp = temp->next;
-		i++;
-	}
-	return (i);
-}
-
-t_pipe	*create_new_pipe(void)
-{
-	t_pipe *new;
-
-	new = (t_pipe *)malloc(sizeof(t_pipe));
-	if (!new)
+	exec = (t_exec *)malloc(sizeof(t_exec));
+	if (!exec)
 		return (NULL);
-	new->tab[0] = -1;
-	new->tab[1] = -1;
-	new->next = NULL;
-	new->prev = NULL;
-	return (new);
+	exec->cmd = NULL;
+	exec->next = NULL;
+	exec->prev = NULL;
+	exec->red = NULL;
 }
 
-void	pipe_add_front(t_pipe **lst, t_pipe *new)
+void	exec_add_back(t_exec **exec, t_exec *new)
 {
-	if (*lst == NULL)
+	t_exec *temp;
+	temp = *exec;
+	if (!*exec)
 	{
-		(*lst) = new;
+		*exec = new;
 		return ;
 	}
-	new->next = *lst;
-	(*lst)->prev = new;
-	*lst = new;
-}
-
-void	pipe_add_back(t_pipe **lst, t_pipe *new)
-{
-	t_pipe *temp;
-
-	temp = *lst;
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	while (temp->next != NULL)
+	while (temp->next)
 		temp = temp->next;
-	temp->next = new;
 	new->prev = temp;
+	temp->next = new;
 }

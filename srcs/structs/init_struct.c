@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:39:56 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/18 16:00:19 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/21 11:53:31 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,44 @@ int	init_path(char ***paths, char **env)
 	}
 	return (FAIL);
 }
+
+t_redirection	*init_redirection(void)
+{
+	t_redirection	*red;
+
+	red = (t_redirection *)malloc(sizeof(t_redirection));
+	if (!red)
+		return (NULL);
+	red->pipes[0] = -1;
+	red->pipes[1] = -1;
+	red->file_fd = -1;
+	red->file = NULL;
+	red->type = -1;
+	return (red);
+}
+
+t_exec	*new_exec(void)
+{
+	t_exec	*exec;
+
+	exec = (t_exec *)malloc(sizeof(t_exec));
+	if (!exec)
+		return (NULL);
+	exec->cmd = NULL;
+	exec->next = NULL;
+	exec->prev = NULL;
+	exec->red = NULL;
+}
+
 t_cmd	*init_cmd(char **env)
 {
 	t_cmd	*cmd;
 
-	cmd = (t_cmd *) malloc(sizeof(t_cmd));
+	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
 	cmd->path_cmd = NULL;
+	cmd->cmd = NULL;
 	cmd->cmds = NULL;
 	cmd->env = env;
 	cmd->paths = NULL;
@@ -68,23 +98,7 @@ t_data	*init_data(void)
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
 		return (NULL);
-	data->cmd = NULL;
+	data->exec = NULL;
 	data->parsing = NULL;
-	return (data);
-}
-
-t_data	*init_all(char **env)
-{
-	t_data *data;
-
-	data = (t_data *)malloc(sizeof(t_data));
-	if (!data)
-		return (NULL);
-	data->cmd = NULL;
-	data->parsing = NULL;
-	data->cmd = init_cmd(env);
-	data->parsing = init_parsing();
-	if (!data->cmd || !data->parsing)
-		return (ft_free_data(&data), NULL);
 	return (data);
 }

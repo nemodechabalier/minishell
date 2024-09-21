@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/21 12:17:37 by nde-chab          #+#    #+#             */
+/*   Updated: 2024/09/21 12:17:38 by nde-chab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -21,23 +33,34 @@
 
 typedef struct s_pipe	t_pipe;
 typedef struct s_list	t_list;
+typedef struct s_exec t_exec;
 
-typedef struct s_pipe
+
+typedef struct s_redirection
 {
-	int					tab[2];
-	t_pipe				*next;
-	t_pipe				*prev;
-}						t_pipe;
+	int pipes[2];
+	int file_fd;
+	char *file;
+	int type;
+} t_redirection;
 
 typedef struct s_cmd
 {
-	char				**env;
-	char				**paths;
-	char				**cmds;
-	char				*cmd;
-	char				*path_cmd;
-	t_pipe				*pipe;
-}						t_cmd;
+	pid_t pid;
+	char **env;
+	char **paths;
+	char **cmds;
+	char *cmd;
+	char *path_cmd;
+} t_cmd;
+
+typedef struct s_exec
+{
+	t_redirection *red;
+	t_cmd *cmd;
+	t_exec *next;
+	t_exec *prev;
+} t_exec;				t_cmd;
 
 typedef struct s_parsing
 {
@@ -56,7 +79,7 @@ typedef struct s_list
 typedef struct s_data
 {
 	t_parsing			*parsing;
-	t_cmd				*cmd;
+	t_exec				*exec;
 }						t_data;
 
 // free func
@@ -73,7 +96,6 @@ int						handle_input(t_parsing *parsing);
 // struct func
 void					token_add_back(t_list **lst, t_list *new);
 t_list					*create_new_token(char *token);
-t_data					*init_all(char **env);
 
 void					ft_free_data(t_data **data);
 void					ft_free_parsing(t_parsing **parsing);
