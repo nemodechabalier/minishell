@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:27:28 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/19 15:11:43 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/21 12:33:07 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,6 @@ int	create_token_cmd(t_parsing *parsing, int *i, int j)
 	return (ERROR_UNCLOSE);
 }
 
-int	create_token_files(t_parsing *parsing, int *i, int j)
-{
-	while ((files_operator(parsing->input[*i]) || parsing->input[*i] == ' ')
-		&& parsing->input[*i])
-		*i += 1;
-	if (parsing->input[*i] == '\0')
-		return (SUCCESS);
-	while (parsing->input[*i])
-	{
-		if (handle_quote(parsing, j, *i) == 0
-			&& (logical_operator(parsing->input[*i])
-				|| parsing->input[*i] == ' '))
-		{
-			if (create_token(parsing, *i, j) == FAIL)
-				return (FAIL);
-			else
-				break ;
-		}
-		*i += 1;
-	}
-	*i -= 1;
-	return (SUCCESS);
-}
-
 int	pars_token(t_parsing *parsing)
 {
 	int	i;
@@ -106,3 +82,15 @@ int	pars_token(t_parsing *parsing)
 	}
 	return (SUCCESS);
 }
+
+//int	find_cmd(t_parsing *parsing)
+//{
+//	int i = 0;
+//	while (parsing->input[i])
+//	{
+//		if (parsing->input[i] == '|')
+//			// mettre les cmds dans le bonne ordre
+//		i++;
+//	}
+//	return (SUCCESS);
+//}

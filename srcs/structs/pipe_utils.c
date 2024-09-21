@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:12:19 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/21 12:17:11 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/21 12:31:43 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,21 @@
 
 t_exec	*new_exec(void)
 {
-	t_exec	*exec;
+	t_exec	*new;
 
-	exec = (t_exec *)malloc(sizeof(t_exec));
-	if (!exec)
+	new = (t_exec *)malloc(sizeof(t_exec));
+	if (!new)
 		return (NULL);
-	exec->cmd = NULL;
-	exec->next = NULL;
-	exec->prev = NULL;
-	exec->red = NULL;
+	new->cmd = NULL;
+	new->next = NULL;
+	new->prev = NULL;
+	new->red = NULL;
 }
 
 void	exec_add_back(t_exec **exec, t_exec *new)
 {
-	t_exec *temp;
+	t_exec	*temp;
+
 	temp = *exec;
 	if (!*exec)
 	{
@@ -36,6 +37,6 @@ void	exec_add_back(t_exec **exec, t_exec *new)
 	}
 	while (temp->next)
 		temp = temp->next;
-	new->prev = temp;
-	temp->next = new;
+	(*exec)->next = new;
+	new->prev = *exec;
 }
