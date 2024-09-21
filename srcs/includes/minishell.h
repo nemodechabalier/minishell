@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:37 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/21 12:17:38 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:05:35 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 # include <errno.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <signal.h>
 # include <string.h>
+# include <sys/wait.h>
+# include <unistd.h>
 
 # define FALSE 0
 # define TRUE 1
@@ -36,34 +36,33 @@
 
 typedef struct s_pipe	t_pipe;
 typedef struct s_list	t_list;
-typedef struct s_exec t_exec;
-
+typedef struct s_exec	t_exec;
 
 typedef struct s_redirection
 {
-	int pipes[2];
-	int file_fd;
-	char *file;
-	int type;
-} t_redirection;
+	int					pipes[2];
+	int					file_fd;
+	char				*file;
+	int					type;
+}						t_redirection;
 
 typedef struct s_cmd
 {
-	pid_t pid;
-	char **env;
-	char **paths;
-	char **cmds;
-	char *cmd;
-	char *path_cmd;
-} t_cmd;
+	pid_t				pid;
+	char				**env;
+	char				**paths;
+	char				**cmds;
+	char				*cmd;
+	char				*path_cmd;
+}						t_cmd;
 
 typedef struct s_exec
 {
-	t_redirection *red;
-	t_cmd *cmd;
-	t_exec *next;
-	t_exec *prev;
-} t_exec;				t_cmd;
+	t_redirection		*red;
+	t_cmd				*cmd;
+	t_exec				*next;
+	t_exec				*prev;
+}						t_exec;
 
 typedef struct s_parsing
 {
@@ -86,7 +85,7 @@ typedef struct s_data
 }						t_data;
 
 // free func
-void					ft_free_str(char **strs);
+void					ft_free_strs(char **strs);
 void					ft_free_data(t_data **data);
 
 // token func
@@ -99,6 +98,9 @@ int						handle_input(t_parsing *parsing);
 // struct func
 void					token_add_back(t_list **lst, t_list *new);
 t_list					*create_new_token(char *token);
+
+t_data					*init_data(void);
+t_parsing				*init_parsing(void);
 
 void					ft_free_data(t_data **data);
 void					ft_free_parsing(t_parsing **parsing);

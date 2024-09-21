@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:27:28 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/21 13:31:06 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:30:04 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ int	create_token_cmd(t_parsing *parsing, int *i, int j)
 	return (ERROR_UNCLOSE);
 }
 
-create_token_files(t_parsing *parsing, int *i, int j)
+int	create_token_files(t_parsing *parsing, int *i, int j)
 {
+	while (files_operator(parsing->input[*i]))
+		*i += 1;
 	while (parsing->input[*i])
 	{
 		if ((logical_operator(parsing->input[*i]) || parsing->input[*i] == ' ')

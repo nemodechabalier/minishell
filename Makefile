@@ -6,7 +6,7 @@
 #    By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/19 13:46:16 by nde-chab          #+#    #+#              #
-#    Updated: 2024/09/18 15:35:43 by nde-chab         ###   ########.fr        #
+#    Updated: 2024/09/21 14:24:46 by nde-chab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,11 @@ NAME = minishell
 LIBFT = libft_all/libft_printf_gnl.a
 CC = cc
 FLAGS = -Wall -Wextra -Werror -g3
-INCLUDES = -I .
+INCLUDES = -I /srcs/includes/.
 
 SRCS_DIR = srcs/*/
 
-FUNC = main.c print_all.c free_func.c free_struct.c init_struct.c list_utils.c pipe_utils.c
-FUNC += special_case.c token.c token_utils.c
+FUNC = ft_env.c ft_pwd.c print_all.c main.c special_case.c token.c token_utils.c exec_utils.c free_func.c free_struct.c init_struct.c list_utils.c
 SRCS = $(addprefix $(SRCS_DIR), $(FUNC))
 
 OBJS_DIR = obj/
@@ -39,7 +38,7 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 # Rule to create the final executable
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "\033[1;32mLinking objects...\033[0m"
-	$(CC) $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
+	$(CC) $(FLAGS) -lreadline $(OBJS) $(LIBFT) -o $(NAME)
 	@echo "\033[1;32mCompilation terminée avec succès ! 🎉\033[0m"
 
 	

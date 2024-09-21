@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:25:13 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/17 17:21:07 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:22:05 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,4 @@ void	ft_pwd(void)
 		printf("%s\n", cwd);
 	else
 		ft_putstr_fd("Cannot get current working directory path", 2);
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:39:56 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/21 11:53:31 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:27:04 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,6 @@ t_redirection	*init_redirection(void)
 	red->file = NULL;
 	red->type = -1;
 	return (red);
-}
-
-t_exec	*new_exec(void)
-{
-	t_exec	*exec;
-
-	exec = (t_exec *)malloc(sizeof(t_exec));
-	if (!exec)
-		return (NULL);
-	exec->cmd = NULL;
-	exec->next = NULL;
-	exec->prev = NULL;
-	exec->red = NULL;
 }
 
 t_cmd	*init_cmd(char **env)
