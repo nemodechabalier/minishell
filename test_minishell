@@ -1,4 +1,3 @@
 ls -a $PWD adlkdl
-
 $PWD ls
-
+>|ls
