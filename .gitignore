@@ -4,5 +4,5 @@ minishell
 test
 a.out
 *.o
-*.c
 *.txt
+./*.c
