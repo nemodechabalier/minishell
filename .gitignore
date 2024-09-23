@@ -5,3 +5,4 @@ test
 a.out
 *.o
 *.txt
+./*.c
