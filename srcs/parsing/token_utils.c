@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/23 11:25:51 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:44:03 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,23 @@ int	files_operator(char c)
 	return (0);
 }
 
-int	handle_input(t_parsing *parsing)
+int	handle_input(t_parsing *parsing, t_data *data, char **env)
 {
 	while (1)
 	{
-		parsing->input = readline("Minishell beta 1.0$ ");
+		parsing->input = readline("Minishell beta 1.1$ ");
 		if (!parsing->input)
-		{
-			printf("\n");
 			break ;
-		}
 		if (*parsing->input)
 		{
 			add_history(parsing->input);
 		}
 		pars_token(parsing);
-		printf("input : \n%s\ntoken :\n", parsing->input);
-		print_token(parsing);
-		ft_free_list(&parsing->tokens);
+		creat_lst_red(data, data->parsing->tokens, env);
+		exec_and_red(data, data->exec);
+		//ft_free_list(&parsing->tokens);
 		free(parsing->input);
+		parsing->input = NULL;
 	}
 	return (0);
 }

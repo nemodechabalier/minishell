@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:27:28 by nde-chab          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2024/09/23 15:02:24 by nde-chab         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/23 17:06:53 by clmanouk         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2024/09/23 18:23:26 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

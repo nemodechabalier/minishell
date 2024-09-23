@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:04:07 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/23 16:45:26 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:31:18 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,14 @@ int	ft_create_pipe(t_data *data)
 	return (SUCCESS);
 }
 
-int	creat_lst_red(t_data *data, t_list *lst)
+int	creat_lst_red(t_data *data, t_list *lst, char **env)
 {
 	while (lst)
 	{
 		if (lst->type == FILES)
 		{
 			if (ft_creat_file(data, lst->token) == FAIL)
-				;
-			return (FAIL);
+				return (FAIL);
 		}
 		else if (lst->type == PIPES)
 		{
@@ -105,6 +104,8 @@ int	creat_lst_red(t_data *data, t_list *lst)
 		}
 		else
 		{
+			if (split_input(lst, data, env) == FAIL)
+				return (FAIL);
 		}
 		lst = lst->next;
 	}

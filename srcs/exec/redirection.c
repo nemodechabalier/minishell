@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:05:03 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/23 17:13:24 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:45:53 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,26 +67,28 @@ int	redirection(t_redirection *red, int output)
 
 int	exec_and_red(t_data *data, t_exec *exec)
 {
-	while (exec)
-	{
-		if (exec->red)
-		{
-			if (redirection(exec->red, 0) == FAIL && exec->next
-				&& exec->next->cmd)
-				exec->next->cmd->skip = 0;
-			close_fd(exec->red);
-			exec = exec->next;
-		}
-		if (exec->cmd)
-		{
-			if (exec->next && exec->next->red && redirection(exec->next->red,
-					1) != FAIL)
-			{
-				close_fd(exec->next->red);
-				before_exec(exec->cmd, data);
-			}
-		}
-		exec = exec->next;
-	}
+	before_exec(exec->cmd, data);
+	//while (exec)
+	//{
+	//	if (exec->red)
+	//	{
+	//		if (redirection(exec->red, 0) == FAIL && exec->next
+	//			&& exec->next->cmd)
+	//			exec->next->cmd->skip = 0;
+	//		close_fd(exec->red);
+	//		exec = exec->next;
+	//	}
+	//	if (exec->cmd)
+	//	{
+	//		if (exec->next && exec->next->red && redirection(exec->next->red,
+	//				1) != FAIL)
+	//		{
+	//			close_fd(exec->next->red);
+	//			before_exec(exec->cmd, data);
+	//		}
+	//	}
+	//	exec = exec->next;
+	//}
+	wait(NULL);
 	return(SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:37 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/23 17:13:09 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:33:57 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ int								files_operator(char c);
 int								handle_quote(t_parsing *parsing, int start,
 									int end);
 int								pars_token(t_parsing *parsing);
-int								handle_input(t_parsing *parsing);
 
 int								create_for_file(t_data *data, char *str,
 									int bool);
@@ -129,6 +128,7 @@ void							exec_add_back(t_exec **exec, t_exec *new);
 
 t_data							*init_data(void);
 t_parsing						*init_parsing(void);
+t_cmd							*init_cmd(char **env);
 
 void							ft_free_data(t_data **data);
 void							ft_free_parsing(t_parsing **parsing);
@@ -146,5 +146,12 @@ t_redirection					*init_redirection(void);
 void							close_fd(t_redirection *red);
 int								before_exec(t_cmd *cmd, t_data *data);
 int								here_doc(t_redirection *red);
+int								split_input(t_list *token, t_data *data,
+									char **env);
+int								handle_input(t_parsing *parsing, t_data *data,
+									char **env);
+int								creat_lst_red(t_data *data, t_list *lst,
+									char **env);
+int								exec_and_red(t_data *data, t_exec *exec);
 
 #endif

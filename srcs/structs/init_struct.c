@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:39:56 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/23 13:52:19 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:41:16 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_cmd	*init_cmd(char **env)
 	cmd->cmds = NULL;
 	cmd->env = env;
 	cmd->paths = NULL;
-	cmd->skip = 1;
+	cmd->skip = 0;
 	if (env)
 	{
 		if (init_path(&cmd->paths, env) == FAIL)
