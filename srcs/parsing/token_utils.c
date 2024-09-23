@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/21 13:51:22 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:25:51 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	handle_quote(t_parsing *parsing, int start, int end)
 	count = 0;
 	while (parsing->input[i] && i < end)
 	{
-		if (parsing->input[i] == 27 || parsing->input[i] == '"')
+		if (parsing->input[i] == 39 || parsing->input[i] == '"')
 			break ;
 		i++;
 	}
@@ -91,7 +91,7 @@ int	find_spaces(t_parsing *parsing)
 	i = 0;
 	while (parsing->input[i])
 	{
-		if (parsing->input[i] >= 9 && parsing->input[i] <= 13
+		if ((parsing->input[i] >= 9 && parsing->input[i] <= 13)
 			|| parsing->input[i] == ' ')
 			return (1);
 		i++;

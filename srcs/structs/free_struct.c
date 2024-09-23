@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:15:09 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/21 14:04:56 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:23:33 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,28 @@ void	ft_free_cmd(t_cmd **cmd)
 	*cmd = NULL;
 }
 
-void	ft_free_exec(t_exec **exec)
-{
-	t_exec	*temp;
-	t_exec	*next;
+//void	ft_free_exec(t_exec **exec)
+//{
+//	t_exec	*temp;
+//	t_exec	*next;
 
-	temp = *exec;
-	while (temp)
-	{
-		next = temp->next;
-		if (temp->cmd)
-		{
-			ft_free_cmd(&temp->cmd);
-			temp->cmd = NULL;
-		}
-		if (temp->red)
-		{
-			ft_free_redirection(&temp->red);
-			temp->red = NULL;
-		}
-	}
-	*exec = NULL;
-}
+//	temp = *exec;
+//	while (temp)
+//	{
+//		next = temp->next;
+//		if (temp->cmd)
+//		{
+//			ft_free_cmd(&temp->cmd);
+//			temp->cmd = NULL;
+//		}
+//		if (temp->red)
+//		{
+//			ft_free_redirection(&temp->red);
+//			temp->red = NULL;
+//		}
+//	}
+//	*exec = NULL;
+//}
 
 void	ft_free_list(t_list **list)
 {
