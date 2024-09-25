@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:05:27 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/23 18:30:49 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/24 11:38:31 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	find_path(char **paths, t_cmd *cmd)
 			free(cmd->path_cmd);
 		i++;
 	}
+	cmd->path_cmd = NULL;
+	cmd->skip = 2;
 	return (SUCCESS);
 }
 

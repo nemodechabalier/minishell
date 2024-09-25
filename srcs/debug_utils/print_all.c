@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:39:24 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/18 15:52:55 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:38:44 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	print_token(t_parsing *parsing)
 	while (parsing->tokens)
 	{
 		printf("token %d : %s\n", i++, parsing->tokens->token);
+		if (parsing->tokens->type == PIPES)
+			printf("type = PIPE\n");
+		if (parsing->tokens->type == CMD)
+			printf("type = CMD\n");
+		if (parsing->tokens->type == FILES)
+			printf("type = FILE\n");
 		parsing->tokens = parsing->tokens->next;
 	}
 }

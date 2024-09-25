@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:34:36 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/21 13:54:04 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:58:11 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_free_strs(char **strs)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (strs[i])
@@ -25,4 +25,18 @@ void	ft_free_strs(char **strs)
 	}
 	free(strs);
 	strs = NULL;
+}
+
+void	free_after_exec(t_data *data)
+{
+	close_exec(data->exec);
+	if (data->exec)
+		ft_free_exec(&data->exec);
+	data->exec = NULL;
+	if (data->parsing->tokens)
+		ft_free_list(&data->parsing->tokens);
+	data->parsing->tokens = NULL;
+	if (data->parsing->input)
+		free(data->parsing->input);
+	data->parsing->input = NULL;
 }

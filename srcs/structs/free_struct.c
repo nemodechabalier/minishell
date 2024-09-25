@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:15:09 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/23 17:10:50 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:06:37 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void	ft_free_redirection(t_redirection **red)
 {
 	close_fd(*red);
-	if ((*red)->file)
-		free((*red)->file);
+	//if ((*red)->file)
+	//	free((*red)->file);
+	//if ((*red)->stop)
+	//	free((*red)->stop);
 	free(*red);
 	*red = NULL;
 }
@@ -27,10 +29,8 @@ void	ft_free_cmd(t_cmd **cmd)
 		ft_free_strs((*cmd)->paths);
 	if ((*cmd)->cmds)
 		ft_free_strs((*cmd)->cmds);
-	if ((*cmd)->cmd)
-		free((*cmd)->cmd);
-	if ((*cmd)->path_cmd)
-		free((*cmd)->path_cmd);
+	//if ((*cmd)->path_cmd)
+	//	free((*cmd)->path_cmd);
 	free(*cmd);
 	*cmd = NULL;
 }
@@ -54,6 +54,7 @@ void	ft_free_exec(t_exec **exec)
 			ft_free_redirection(&temp->red);
 			temp->red = NULL;
 		}
+		temp = next;
 	}
 	*exec = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:04:07 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/23 18:31:18 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:26:25 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	create_for_file(t_data *data, char *str, int bool)
 	else
 		pipes->stop = str;
 	if (bool == 1)
-		pipes->type = TRUNC;
-	else if (bool == 2)
 		pipes->type = APEND;
+	else if (bool == 2)
+		pipes->type = TRUNC;
 	else if (bool == 3)
 		pipes->type = INPUT;
 	else if (bool == 4)

@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:44:52 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/23 17:11:41 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:57:24 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,24 @@ int	ft_exec(t_cmd *cmd, t_data *data)
 		ft_free_data(&data);
 		exit(EXIT_FAILURE);
 	}
-	return(FAIL);
+	return (FAIL);
 }
 
-int	before_exec(t_cmd *cmd, t_data *data)
+int	before_exec(t_exec *exec, t_data *data)
 {
-	cmd->pid = fork();
-	if (cmd->pid == -1)
+	exec->cmd->pid = fork();
+	if (exec->cmd->pid == -1)
 		return (FAIL);
-	else if (cmd->pid == 0)
-		ft_exec(cmd, data);
+	else if (exec->cmd->pid == 0)
+	{
+		if (exec->next && exec->next->red && redirection(exec->next->red, 1,
+				1) == FAIL)
+			exec->cmd->skip = 1;
+		if (exec->prev && exec->prev->red && redirection(exec->prev->red, 0,
+				1) == FAIL)
+			exec->cmd->skip = 1;
+		close_exec(data->exec);
+		ft_exec(exec->cmd, data);
+	}
 	return (SUCCESS);
 }

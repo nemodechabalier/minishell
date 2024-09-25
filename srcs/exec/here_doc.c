@@ -6,13 +6,13 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:27:14 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/23 16:48:24 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:19:40 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	*creat_here_doc()
+static char	*creat_here_doc(void)
 {
 	char	*name;
 	char	*temp;
@@ -37,16 +37,16 @@ static char	*creat_here_doc()
 	return (name);
 }
 
-int	here_doc(t_redirection *red)
+int	here_doc(t_redirection *red, int bool)
 {
-	char *line;
-	int len;
+	char	*line;
+	int		len;
 
 	red->file = creat_here_doc();
 	if (!red->file)
 		return (FAIL);
 	len = ft_strlen(red->stop);
-	red->file_fd = open(red->file, O_CREAT, 0644);
+	red->file_fd = open(red->file, O_CREAT, W_OK, R_OK, 0644);
 	line = get_next_line(0);
 	while (line)
 	{
@@ -57,7 +57,8 @@ int	here_doc(t_redirection *red)
 		line = get_next_line(0);
 	}
 	free(line);
-	dup2(red->file_fd, STDIN_FILENO);
+	if (bool)
+		dup2(red->file_fd, STDIN_FILENO);
 	close(red->file_fd);
 	return (SUCCESS);
 }
