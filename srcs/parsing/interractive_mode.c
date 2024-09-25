@@ -6,7 +6,7 @@
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:04:35 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/19 17:42:22 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:31:45 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 
 void	handle_sig(int signum)
 {
-	if (signum == SIGINT)
-		ft_printf("Minishell beta 1.0$ ");
-		
-	else if (signum == SIGQUIT)
-		ft_printf("Minishell beta 1.0$ ");
+	if (signum == SIGINT) // CTRL-C
+	{
+		ft_printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
-
 void	set_signal_action(void)
 {
 	struct sigaction act;
 	ft_bzero(&act, sizeof(act));
 	act.sa_handler = &handle_sig;
-	sigation(SIGINT, &act, NULL);
-	sigaction(SIGQUIT, &act, NULL);
+	act.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &act, NULL);
+	signal(SIGQUIT, SIG_IGN); // CTRL -\ ne fait rien
 }

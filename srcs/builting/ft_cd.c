@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   special_case.c                                     :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 11:37:17 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/24 12:08:21 by clmanouk         ###   ########.fr       */
+/*   Created: 2024/09/24 10:50:10 by clmanouk          #+#    #+#             */
+/*   Updated: 2024/09/24 15:26:53 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	backslash_input(t_parsing *parsing)
-{
-	int i;
-	
-	i = 0;
-	while (parsing->input[i])
-	{
-		if (parsing->input[i] == 47)
-			return (SUCCESS);
-		i++;
-	}
-	return (FAIL);
-}
+/*
+The cd utility shall change the working directory of the current  shell
+execution  environment  (see Section 2.12, Shell Execution Environment)
+by executing the following steps in sequence. (In the following  steps,
+the  symbol  curpath  represents an intermediate value used to simplify
+the description of the algorithm used by cd.  There is  no  requirement
+that curpath be made visible to the application.
+*/

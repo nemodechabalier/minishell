@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:37 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/23 18:33:57 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:12:49 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_list			t_list;
 typedef struct s_exec			t_exec;
 typedef struct s_redirection	t_redirection;
 typedef struct s_cmd			t_cmd;
+typedef struct s_env			t_env;
 
 typedef enum a_type
 {
@@ -99,11 +100,18 @@ typedef struct s_list
 	t_list						*next;
 	t_list						*prev;
 }								t_list;
+typedef struct s_env
+{
+	char						*env;
+	t_env						*next;
+	t_env						*prev;
+}								t_env;
 
 typedef struct s_data
 {
 	t_parsing					*parsing;
 	t_exec						*exec;
+	t_env						*env;
 }								t_data;
 
 // free func
@@ -129,6 +137,9 @@ void							exec_add_back(t_exec **exec, t_exec *new);
 t_data							*init_data(void);
 t_parsing						*init_parsing(void);
 t_cmd							*init_cmd(char **env);
+t_env							*init_env(char *env);
+void							env_add_back(t_env **env, t_env *new);
+int								creat_env(t_env *env, t_data *data);
 
 void							ft_free_data(t_data **data);
 void							ft_free_parsing(t_parsing **parsing);
@@ -153,5 +164,8 @@ int								handle_input(t_parsing *parsing, t_data *data,
 int								creat_lst_red(t_data *data, t_list *lst,
 									char **env);
 int								exec_and_red(t_data *data, t_exec *exec);
+
+void							set_signal_action(void);
+void							handle_sig(int signum);
 
 #endif

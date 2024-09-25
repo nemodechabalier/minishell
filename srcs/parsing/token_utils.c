@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/23 18:44:03 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:27:32 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	files_operator(char c)
 
 int	handle_input(t_parsing *parsing, t_data *data, char **env)
 {
+	set_signal_action();
 	while (1)
 	{
 		parsing->input = readline("Minishell beta 1.1$ ");
@@ -47,7 +48,7 @@ int	handle_input(t_parsing *parsing, t_data *data, char **env)
 		pars_token(parsing);
 		creat_lst_red(data, data->parsing->tokens, env);
 		exec_and_red(data, data->exec);
-		//ft_free_list(&parsing->tokens);
+		// ft_free_list(&parsing->tokens);
 		free(parsing->input);
 		parsing->input = NULL;
 	}
