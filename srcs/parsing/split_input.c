@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   split_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:05:27 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/25 16:24:27 by nde-chab         ###   ########.fr       */
+<<<<<<< Updated upstream
+/*   Updated: 2024/09/28 13:25:38 by clmanouk         ###   ########.fr       */
+=======
+/*   Updated: 2024/09/25 14:32:10 by clmanouk         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +18,9 @@
 
 int	find_path(char **paths, t_cmd *cmd)
 {
-	int		i;
+	int		(i) = 0;
 	char	*temp;
 
-	i = 0;
 	if (!cmd)
 		return (FAIL);
 	if (access(cmd->cmd, F_OK) == 0)

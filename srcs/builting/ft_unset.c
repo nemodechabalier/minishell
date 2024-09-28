@@ -6,13 +6,11 @@
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:28:51 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/25 12:07:05 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:01:45 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// Unset va supprimer une variable d'env ou une variable d'env exportee
 
 // pour supp var d'env
 
@@ -42,16 +40,4 @@ int	ft_unsetenv(const char *name, t_env **env)
 		current = current->next;
 	}
 	return (SUCCESS);
-}
-// pour supprimer var globale
-
-int	ft_unset_globalvar(const char *name)
-{
-	
-}
-
-// appel aux deux
-int	ft_unset(const char *cmd, char **env)
-{
-	
 }

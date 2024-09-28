@@ -6,7 +6,7 @@
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:50:10 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/24 15:26:53 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:29:51 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,3 +20,18 @@ the  symbol  curpath  represents an intermediate value used to simplify
 the description of the algorithm used by cd.  There is  no  requirement
 that curpath be made visible to the application.
 */
+
+/*
+chdir return 0 en cas de success
+*/
+void ft_cd(char *path)
+{
+	if (path == NULL)
+	{
+		path = getenv("HOME");
+		if (path == NULL)
+			return ;	
+	}
+	if (chdir(path) != 0)
+		return ;
+}
