@@ -6,20 +6,21 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:05:03 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/25 10:53:32 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:30:35 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	redirection_ok(t_exec *exec)
+int	creat_pipe(t_exec *exec)
 {
-	if (!exec->next || !exec->next->cmd)
+	while (exec->next)
 	{
-		if (!exec->prev || !exec->prev->cmd)
-			return(1);
+		if (pipe(exec->pipe) == -1)
+			return (perror("pipe :"), FAIL);
+		exec = exec->next;
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 void	wait_child(t_exec *exec)
@@ -32,47 +33,27 @@ void	wait_child(t_exec *exec)
 	}
 }
 
-void	close_exec(t_exec *exec)
-{
-	while (exec->prev)
-		exec = exec->prev;
-	while (exec)
-	{
-		if (exec->red)
-			close_fd(exec->red);
-		exec = exec->next;
-	}
-}
+// void	close_exec(t_exec *exec)
+//{
+//	while (exec->prev)
+//		exec = exec->prev;
+//	while (exec)
+//	{
+//		if (exec->red)
+//			close_fd(exec->red);
+//		exec = exec->next;
+//	}
+//}
 
-void	close_fd(t_redirection *red)
+int	redirection(t_redirection *red, int bool)
 {
-	if (red->file_fd != -1)
+	if (red->type == HERE_DOC)
 	{
-		close(red->file_fd);
-		red->file_fd = -1;
+		if (!bool)
+			here_doc(red);
+		red->file_fd = open(red->file, O_RDONLY);
+		dup2(red->file_fd, STDIN_FILENO);
 	}
-	if (red->pipes[0] != -1)
-	{
-		close(red->pipes[0]);
-		red->pipes[0] = -1;
-	}
-	if (red->pipes[1] != -1)
-	{
-		close(red->pipes[1]);
-		red->pipes[1] = -1;
-	}
-}
-
-int	redirection(t_redirection *red, int output, int bool)
-{
-	if (red->type == PIPE && bool)
-	{
-		if (output == 1)
-			return (dup2(red->pipes[1], STDOUT_FILENO));
-		return (dup2(red->pipes[0], STDIN_FILENO));
-	}
-	else if (red->type == HERE_DOC)
-		here_doc(red, bool);
 	else if (red->type == TRUNC)
 	{
 		red->file_fd = open(red->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -80,14 +61,16 @@ int	redirection(t_redirection *red, int output, int bool)
 			return (perror(red->file), FAIL);
 		if (bool)
 			dup2(red->file_fd, STDOUT_FILENO);
+		close(red->file_fd);
 	}
-	else if (red->type == TRUNC)
+	else if (red->type == APEND)
 	{
 		red->file_fd = open(red->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (red->file_fd == -1)
 			return (perror(red->file), FAIL);
 		if (bool)
 			dup2(red->file_fd, STDOUT_FILENO);
+		close(red->file_fd);
 	}
 	else if (red->type == INPUT)
 	{
@@ -96,17 +79,29 @@ int	redirection(t_redirection *red, int output, int bool)
 			return (perror(red->file), FAIL);
 		if (bool)
 			dup2(red->file_fd, STDIN_FILENO);
+		close(red->file_fd);
 	}
 	return (SUCCESS);
 }
 
 int	exec_and_red(t_data *data, t_exec *exec)
 {
+	t_redirection	*temp;
+
+	creat_pipe(exec);
 	while (exec)
 	{
-		if (exec->red && redirection_ok(exec))
-			redirection(exec->red, 1, 0);
-		if (exec->cmd)
+		temp = exec->red;
+		while (temp)
+		{
+			if (exec->red && redirection(temp, 0) == FAIL)
+			{
+				exec = exec->next;
+				break ;
+			}
+			temp = temp->next;
+		}
+		if (!temp && exec->cmd)
 			before_exec(exec, data);
 		exec = exec->next;
 	}

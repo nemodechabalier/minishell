@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+         #
+#    By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/19 13:46:16 by nde-chab          #+#    #+#              #
-#    Updated: 2024/09/25 11:00:42 by clmanouk         ###   ########.fr        #
+#    Updated: 2024/09/25 17:38:42 by nde-chab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 LIBFT = libft_all/libft_printf_gnl.a
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g3
+FLAGS = -Wall -Wextra -Werror -g3 -g
 INCLUDES = -I /srcs/includes/.
 
 SRCS_DIR = srcs/*/

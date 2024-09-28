@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:05:27 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/24 11:38:31 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:24:27 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,56 @@ int	find_path(char **paths, t_cmd *cmd)
 	cmd->skip = 2;
 	return (SUCCESS);
 }
-
-int	split_input(t_list *token, t_data *data, char **env)
+int	add_flag_cmds(t_list *token, t_exec *exec)
 {
 	char	**split;
-	t_exec	*new;
-	t_cmd	*cmd;
+	char	**temp;
+	int		i;
+	int		j;
 
-	new = new_exec();
-	if (!new)
-		return (FAIL);
-	cmd = init_cmd(env);
-	if (!cmd)
-		return (free(new), FAIL);
+	i = 0;
+	j = 0;
 	split = ft_split(token->token, ' ');
 	if (!split)
-		return (ft_free_cmd(&cmd), free(new), FAIL);
+		return (FAIL);
+	while (split[i])
+		i++;
+	while (exec->cmd->cmds[i])
+		i++;
+	temp = malloc(sizeof(char *) * (i + 1));
+	if (!temp)
+		return (ft_free_strs(split), FAIL);
+	i = 0;
+	j = 0;
+	while (exec->cmd->cmds[i])
+	{
+		temp[i] = exec->cmd->cmds[i];
+		i++;
+	}
+	while (split[j])
+		temp[i++] = split[j++];
+	temp[i] = NULL;
+	exec->cmd->cmds = temp;
+	return (SUCCESS);
+}
+
+int	split_input(t_list *token, t_exec *exec, char **env)
+{
+	char	**split;
+	t_cmd	*cmd;
+
+	if (exec->cmd)
+		return (add_flag_cmds(token, exec));
+	cmd = init_cmd(env);
+	if (!cmd)
+		return (FAIL);
+	split = ft_split(token->token, ' ');
+	if (!split)
+		return (ft_free_cmd(&cmd), FAIL);
 	cmd->cmds = split;
 	cmd->cmd = split[0];
-	new->cmd = cmd;
 	find_path(cmd->paths, cmd);
-	exec_add_back(&data->exec, new);
+	exec->cmd = cmd;
 	return (SUCCESS);
 }
 

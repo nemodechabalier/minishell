@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:37 by nde-chab          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2024/09/25 11:12:49 by clmanouk         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/24 15:20:38 by nde-chab         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2024/09/25 18:30:26 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +43,6 @@ typedef struct s_env			t_env;
 
 typedef enum a_type
 {
-	PIPE,
 	HERE_DOC,
 	TRUNC,
 	APEND,
@@ -63,11 +58,12 @@ typedef enum a_choice
 
 typedef struct s_redirection
 {
-	int							pipes[2];
 	int							file_fd;
 	char						*stop;
 	char						*file;
 	t_type						type;
+	t_redirection				*next;
+	t_redirection				*prev;
 }								t_redirection;
 
 typedef struct s_cmd
@@ -79,12 +75,11 @@ typedef struct s_cmd
 	char						**cmds;
 	char						*cmd;
 	char						*path_cmd;
-	t_redirection				*next;
-	t_redirection				*prev;
 }								t_cmd;
 
 typedef struct s_exec
 {
+	int							pipe[2];
 	t_redirection				*red;
 	t_cmd						*cmd;
 	t_exec						*next;
@@ -116,6 +111,8 @@ typedef struct s_data
 	t_parsing					*parsing;
 	t_exec						*exec;
 	t_env						*env;
+	int							stdin;
+	int							stdout;
 }								t_data;
 
 // free func
@@ -129,15 +126,14 @@ int								handle_quote(t_parsing *parsing, int start,
 									int end);
 int								pars_token(t_parsing *parsing);
 
-int								create_for_file(t_data *data, char *str,
-									int bool);
-
 // struct func
 void							token_add_back(t_list **lst, t_list *new);
 t_list							*create_new_token(char *token, int bool);
 t_exec							*new_exec(void);
 void							exec_add_back(t_exec **exec, t_exec *new);
 void							ft_free_exec(t_exec **exec);
+void							red_add_back(t_redirection **red,
+									t_redirection *new);
 
 t_data							*init_data(void);
 t_parsing						*init_parsing(void);
@@ -162,8 +158,8 @@ int								ft_exec(t_cmd *cmd, t_data *data);
 t_redirection					*init_redirection(void);
 void							close_fd(t_redirection *red);
 int								before_exec(t_exec *exec, t_data *data);
-int								here_doc(t_redirection *red, int bool);
-int								split_input(t_list *token, t_data *data,
+int								here_doc(t_redirection *red);
+int								split_input(t_list *token, t_exec *exec,
 									char **env);
 int								handle_input(t_parsing *parsing, t_data *data,
 									char **env);
@@ -172,8 +168,7 @@ int								creat_lst_red(t_data *data, t_list *lst,
 int								exec_and_red(t_data *data, t_exec *exec);
 void							wait_child(t_exec *exec);
 void							close_exec(t_exec *exec);
-int								redirection(t_redirection *red, int output,
-									int bool);
+int								redirection(t_redirection *red, int bool);
 
 void							set_signal_action(void);
 void							handle_sig(int signum);

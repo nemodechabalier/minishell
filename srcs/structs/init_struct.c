@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:39:56 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/24 17:03:11 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:17:59 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,6 @@ int	init_path(char ***paths, char **env)
 		i++;
 	}
 	return (FAIL);
-}
-
-t_redirection	*init_redirection(void)
-{
-	t_redirection	*red;
-
-	red = (t_redirection *)malloc(sizeof(t_redirection));
-	if (!red)
-		return (NULL);
-	red->pipes[0] = -1;
-	red->pipes[1] = -1;
-	red->file_fd = -1;
-	red->file = NULL;
-	red->stop = NULL;
-	return (red);
 }
 
 t_cmd	*init_cmd(char **env)

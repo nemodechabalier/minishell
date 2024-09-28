@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:15:09 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/24 17:06:37 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:17:54 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_free_redirection(t_redirection **red)
 {
-	close_fd(*red);
+	//close_fd(*red);
 	//if ((*red)->file)
 	//	free((*red)->file);
 	//if ((*red)->stop)

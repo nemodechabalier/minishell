@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2024/09/25 11:27:32 by clmanouk         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/25 12:36:34 by nde-chab         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2024/09/25 18:06:48 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +45,12 @@ int	handle_input(t_parsing *parsing, t_data *data, char **env)
 		{
 			add_history(parsing->input);
 			pars_token(parsing);
-			print_token(parsing);
+			//print_token(parsing);
 			creat_lst_red(data, data->parsing->tokens, env);
-			//exec_and_red(data, data->exec);
+			exec_and_red(data, data->exec);
 			wait_child(data->exec);
-			//free_after_exec(data);
+			free_after_exec(data);
 		}
-<<<<<<< Updated upstream
-		pars_token(parsing);
-		creat_lst_red(data, data->parsing->tokens, env);
-		exec_and_red(data, data->exec);
-		// ft_free_list(&parsing->tokens);
-		free(parsing->input);
-		parsing->input = NULL;
-=======
->>>>>>> Stashed changes
 	}
 	return (0);
 }

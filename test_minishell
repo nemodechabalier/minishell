@@ -1,2 +1,15 @@
 echo "$PATH"
 echo '$PATH'
+
+ls >> outfile.txt /usr/bin/ls | grep minishell 
+>> outfile.txt /usr/bin/ls | grep minishell 
+ls >> outfile.txt infile.txt | grep minishell
+
+
+
+minshell $  > "ekjfkljeffe"'kdjfkf'
+
+
+ ls | ls > out1 > out2 -l > out3 -a | env | > out2 grep "PATH"
+
+cmd | red red red cmd | cmd | red cmd

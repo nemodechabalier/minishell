@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:27:14 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/24 17:19:40 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:29:21 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ static char	*creat_here_doc(void)
 			return (NULL);
 		i++;
 	}
+	i = open(name, O_CREAT, 0655);
+	close(i);
 	return (name);
 }
 
-int	here_doc(t_redirection *red, int bool)
+int	here_doc(t_redirection *red)
 {
 	char	*line;
 	int		len;
@@ -46,7 +48,7 @@ int	here_doc(t_redirection *red, int bool)
 	if (!red->file)
 		return (FAIL);
 	len = ft_strlen(red->stop);
-	red->file_fd = open(red->file, O_CREAT, W_OK, R_OK, 0644);
+	red->file_fd = open(red->file, W_OK, R_OK);
 	line = get_next_line(0);
 	while (line)
 	{
@@ -57,8 +59,6 @@ int	here_doc(t_redirection *red, int bool)
 		line = get_next_line(0);
 	}
 	free(line);
-	if (bool)
-		dup2(red->file_fd, STDIN_FILENO);
 	close(red->file_fd);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:34:36 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/25 10:58:11 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:18:20 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_free_strs(char **strs)
 
 void	free_after_exec(t_data *data)
 {
-	close_exec(data->exec);
+	//close_exec(data->exec);
 	if (data->exec)
 		ft_free_exec(&data->exec);
 	data->exec = NULL;

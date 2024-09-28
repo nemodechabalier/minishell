@@ -6,11 +6,23 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:44:52 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/24 16:57:24 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:24:15 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	close_pipe(t_exec *exec)
+{
+	while (exec->prev)
+		exec = exec->prev;
+	while (exec->next)
+	{
+		close(exec->pipe[0]);
+		close(exec->pipe[1]);
+		exec = exec->next;
+	}
+}
 
 int	ft_exec(t_cmd *cmd, t_data *data)
 {
@@ -36,21 +48,33 @@ int	ft_exec(t_cmd *cmd, t_data *data)
 	return (FAIL);
 }
 
+int	dup_pipe(t_exec *exec)
+{
+	if (exec->prev)
+		dup2(exec->prev->pipe[0], STDIN_FILENO);
+	if (exec->next)
+		dup2(exec->pipe[1], STDOUT_FILENO);
+	close_pipe(exec);
+	return (SUCCESS);
+}
+
 int	before_exec(t_exec *exec, t_data *data)
 {
+	t_redirection *temp;
 	exec->cmd->pid = fork();
 	if (exec->cmd->pid == -1)
 		return (FAIL);
 	else if (exec->cmd->pid == 0)
 	{
-		if (exec->next && exec->next->red && redirection(exec->next->red, 1,
-				1) == FAIL)
-			exec->cmd->skip = 1;
-		if (exec->prev && exec->prev->red && redirection(exec->prev->red, 0,
-				1) == FAIL)
-			exec->cmd->skip = 1;
-		close_exec(data->exec);
-		ft_exec(exec->cmd, data);
+		dup_pipe(exec);
+		temp = exec->red;
+		while (temp)
+		{
+			redirection(temp, 1);
+			temp = temp->next;
+		}
+		if (exec->cmd)
+			ft_exec(exec->cmd, data);
 	}
 	return (SUCCESS);
 }
