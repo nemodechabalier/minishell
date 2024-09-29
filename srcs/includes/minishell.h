@@ -6,11 +6,7 @@
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:37 by nde-chab          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2024/09/28 13:25:49 by clmanouk         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/26 15:33:04 by clmanouk         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2024/09/29 17:34:51 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +174,8 @@ void							set_signal_action(void);
 void							handle_sig(int signum);
 int								join_cmd(t_data *data, t_list *list,
 									char **env);
-int								first_operator(t_parsing *parsing);
+int								files_error(t_parsing *parsing);
+int								pipe_error(t_parsing *parsing);
+int								special_char_input(t_parsing *parsing);
 
 #endif

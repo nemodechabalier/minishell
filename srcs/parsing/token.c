@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:27:28 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/24 17:03:06 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:50:08 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	pars_token(t_parsing *parsing)
 		else if (parsing->input[i] == '|')
 		{
 			if (parsing->input[i + 1] == '|')
-				return (ERROR_UNCLOSE);
+				return (printf("syntax error\n"), ERROR_UNCLOSE);
 			if (create_token(parsing, i + 1, j, 1) == FAIL)
 				return (FAIL);
 		}

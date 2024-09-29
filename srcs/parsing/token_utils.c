@@ -6,11 +6,7 @@
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2024/09/28 13:25:31 by clmanouk         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/26 15:36:56 by clmanouk         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2024/09/28 18:28:44 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +44,15 @@ int	handle_input(t_parsing *parsing, t_data *data, char **env)
 		if (*parsing->input)
 		{
 			add_history(parsing->input);
-			first_operator(parsing);
+			files_error(parsing);
 			//pars_token(parsing);
-			print_token(parsing);
+			//print_token(parsing);
 			creat_lst_red(data, data->parsing->tokens, env);
+			pipe_error(parsing);
 			exec_and_red(data, data->exec);
 			wait_child(data->exec);
 			free_after_exec(data);
 		}
-		pars_token(parsing);
-		creat_lst_red(data, data->parsing->tokens, env);
-		exec_and_red(data, data->exec);
-		// ft_free_list(&parsing->tokens);
-		free(parsing->input);
 		parsing->input = NULL;
 	}
 	return (0);
@@ -72,7 +64,7 @@ int	handle_quote(t_parsing *parsing, int start, int end)
 	char	c;
 
 	int(i) = start;
-	count = -1;
+	count = -1; //quand il y a le bon nb de quote
 	while (parsing->input[i] && i < end)
 	{
 		if (parsing->input[i] == 39 || parsing->input[i] == '"')
@@ -93,6 +85,7 @@ int	handle_quote(t_parsing *parsing, int start, int end)
 		if (parsing->input[i])
 			i++;
 	}
+	printf("%d\n", count);
 	return (count);
 }
 

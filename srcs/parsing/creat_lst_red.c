@@ -6,11 +6,7 @@
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:04:07 by nde-chab          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2024/09/28 13:25:44 by clmanouk         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/25 15:19:48 by clmanouk         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2024/09/28 13:43:58 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -6,40 +6,59 @@
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 15:24:35 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/26 18:52:51 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:44:33 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	first_operator(t_parsing *parsing)
+int	files_error(t_parsing *parsing)
 {
-	int	i;
-
-	i = 0;
+	int(i) = 0;
 	while (parsing->input[i])
 	{
 		while (parsing->input[i] == ' ')
 			i++;
-		if (logical_operator(parsing->input[i]))
+		if (special_char_input(parsing) == FAIL)
+			return (printf("syntax error\n"), -1);
+		if (files_operator(parsing->input[i]))
 		{
 			i++;
-			if (parsing->input[i] == '\0' || logical_operator(parsing->input[i]))
+			if (parsing->input[i] == '\0')
 				return (printf("syntax error\n"), -1);
-			else
-				pars_token(parsing);
+			if (files_operator(parsing->input[i])
+				&& files_operator(parsing->input[i + 1]))
+				return (printf("syntax error\n"), -1);
+			else if (parsing->input[i])
+			{
+				if (files_operator(parsing->input[i]))
+					i++;
+				while (parsing->input[i] == ' ')
+					i++;
+				if (files_operator(parsing->input[i]) || !parsing->input[i])
+					return (printf("syntax error\n"), -1);
+			}
 		}
-		i++;
+		if (parsing->input[i])
+			i++;
 	}
-	return (1);
+	return (pars_token(parsing));
 }
 
-int	handle_var_double_quote(t_parsing *parsing)
+int	pipe_error(t_parsing *parsing)
 {
-	int i;
-	char **split;
-	
-	i = 0;
-	split = split_input_d_quote(parsing);
-	//expandre la var d'env
+	if (!parsing->tokens)
+		return (FAIL);
+	if (parsing->tokens && parsing->tokens->type == PIPES)
+		return (printf("syntax error\n"), -1);
+	while (parsing->tokens->next != NULL)
+	{
+		if (parsing->tokens->type == PIPES
+			&& parsing->tokens->next->type == PIPES)
+			return (printf("syntax error\n"), -1);
+		parsing->tokens = parsing->tokens->next;
+	}
+	if (parsing->tokens && parsing->tokens->type == PIPES)
+		return (printf("syntax error\n"), -1);
+	return (SUCCESS);
 }

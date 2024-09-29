@@ -6,11 +6,7 @@
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:05:27 by clmanouk          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2024/09/28 13:25:38 by clmanouk         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/25 14:32:10 by clmanouk         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2024/09/29 17:34:26 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +14,9 @@
 
 int	find_path(char **paths, t_cmd *cmd)
 {
-	int		(i) = 0;
 	char	*temp;
 
+	int(i) = 0;
 	if (!cmd)
 		return (FAIL);
 	if (access(cmd->cmd, F_OK) == 0)
@@ -97,58 +93,3 @@ int	split_input(t_list *token, t_exec *exec, char **env)
 	return (SUCCESS);
 }
 
-char	**split_input_d_quote(t_parsing *parsing)
-{
-	int		i;
-	char	**split;
-	char	*copy;
-	int		start;
-
-	i = 0;
-	while (parsing->input[i])
-	{
-		if (parsing->input[i] == '"')
-		{
-			i++;
-			start = i;
-			while (parsing->input[i] && parsing->input[i] != '"')
-				i++;
-			if (parsing->input[i] == '"')
-			{
-				copy = ft_substr(parsing->input, start, i - start);
-				split = ft_split(copy, ' ');
-			}
-			free(copy);
-		}
-		i++;
-	}
-	return (split);
-}
-
-char	**split_input_simple_quote(t_parsing *parsing)
-{
-	int		i;
-	char	**split;
-	char	*copy;
-	int		start;
-
-	i = 0;
-	while (parsing->input[i])
-	{
-		if (parsing->input[i] == 27)
-		{
-			i++;
-			start = i;
-			while (parsing->input[i] && parsing->input[i] != 27)
-				i++;
-			if (parsing->input[i] == 27)
-			{
-				copy = ft_substr(parsing->input, start, i - start);
-				split = ft_split(copy, ' ');
-			}
-			free(copy);
-		}
-		i++;
-	}
-	return (split);
-}
