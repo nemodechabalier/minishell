@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_lst_red.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:04:07 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/28 13:43:58 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:25:13 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,22 @@
 int	create_for_file(t_exec *exec, char *str, int bool)
 {
 	t_redirection	*pipes;
+	char			*name;
+	int				i;
 
+	i = 0;
+	while (files_operator(str[i]) || str[i] == ' ')
+		i++;
+	name = remove_quote(str + i);
+	if (!name)
+		return (FAIL);
 	pipes = init_redirection();
 	if (!pipes)
 		return (FAIL);
 	if (bool == 1 || bool == 2 || bool == 3)
-		pipes->file = str;
+		pipes->file = name;
 	else
-		pipes->stop = str;
+		pipes->stop = name;
 	if (bool == 1)
 		pipes->type = TRUNC;
 	else if (bool == 2)
@@ -38,29 +46,13 @@ int	create_for_file(t_exec *exec, char *str, int bool)
 int	ft_creat_file(t_exec *exec, char *str)
 {
 	if (str[0] == '>' && !files_operator(str[1]))
-	{
-		if (str[1] == ' ')
-			return (create_for_file(exec, str + 2, 1));
-		return (create_for_file(exec, str + 1, 1));
-	}
+		return (create_for_file(exec, str, 1));
 	else if (str[0] == '>' && !files_operator(str[2]))
-	{
-		if (str[2] == ' ')
-			return (create_for_file(exec, str + 3, 2));
-		return (create_for_file(exec, str + 2, 2));
-	}
+		return (create_for_file(exec, str, 2));
 	else if (str[0] == '<' && !files_operator(str[1]))
-	{
-		if (str[1] == ' ')
-			return (create_for_file(exec, str + 2, 3));
-		return (create_for_file(exec, str + 1, 3));
-	}
+		return (create_for_file(exec, str, 3));
 	else if (str[0] == '<' && str[1] == '<' && !files_operator(str[2]))
-	{
-		if (str[2] == ' ')
-			return (create_for_file(exec, str + 2, 4));
-		return (create_for_file(exec, str + 2, 4));
-	}
+		return (create_for_file(exec, str, 4));
 	return (FAIL);
 }
 

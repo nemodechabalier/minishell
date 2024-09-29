@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   special_case.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:37:17 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/28 17:44:14 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:29:59 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ int	special_char_input(t_parsing *parsing)
 	i = 0;
 	while (parsing->input[i])
 	{
-		if (parsing->input[i] == 47 || parsing->input[i] == 92
-			|| parsing->input[i] == '&')
+		if (parsing->input[i] == 92 || parsing->input[i] == '&')
 			return (FAIL);
 		i++;
 	}

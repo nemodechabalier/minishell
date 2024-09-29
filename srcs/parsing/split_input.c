@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:05:27 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/29 17:34:26 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:28:17 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	add_flag_cmds(t_list *token, t_exec *exec)
 
 	i = 0;
 	j = 0;
-	split = ft_split(token->token, ' ');
+	split = remove_quote_cmd(token->token);
 	if (!split)
 		return (FAIL);
 	while (split[i])
@@ -83,7 +83,7 @@ int	split_input(t_list *token, t_exec *exec, char **env)
 	cmd = init_cmd(env);
 	if (!cmd)
 		return (FAIL);
-	split = ft_split(token->token, ' ');
+	split = remove_quote_cmd(token->token);
 	if (!split)
 		return (ft_free_cmd(&cmd), FAIL);
 	cmd->cmds = split;

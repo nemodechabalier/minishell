@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/28 18:28:44 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:37:23 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minishell.h"
 
@@ -38,7 +39,7 @@ int	handle_input(t_parsing *parsing, t_data *data, char **env)
 	set_signal_action();
 	while (1)
 	{
-		parsing->input = readline("Minishell beta 1.1$ ");
+		parsing->input = readline("Minishell beta 2.0$ ");
 		if (!parsing->input)
 			break ;
 		if (*parsing->input)
@@ -58,23 +59,25 @@ int	handle_input(t_parsing *parsing, t_data *data, char **env)
 	return (0);
 }
 
-int	handle_quote(t_parsing *parsing, int start, int end)
+int	handle_quote(char *input, int start, int end)
 {
 	int		count;
 	char	c;
 
 	int(i) = start;
+	count = -1;
+	while (input[i] && i < end)
 	count = -1; //quand il y a le bon nb de quote
-	while (parsing->input[i] && i < end)
+	while (input[i] && i < end)
 	{
-		if (parsing->input[i] == 39 || parsing->input[i] == '"')
+		if (input[i] == 39 || input[i] == '"')
 		{
-			c = parsing->input[i];
+			c = input[i];
 			count = -count;
 			i++;
-			while (parsing->input[i] && i < end)
+			while (input[i] && i < end)
 			{
-				if (parsing->input[i] == c)
+				if (input[i] == c)
 				{
 					count = -count;
 					break ;
@@ -82,7 +85,7 @@ int	handle_quote(t_parsing *parsing, int start, int end)
 				i++;
 			}
 		}
-		if (parsing->input[i])
+		if (input[i])
 			i++;
 	}
 	printf("%d\n", count);

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:37 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/29 17:34:51 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:31:07 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -33,6 +34,7 @@
 # define PATH_MAX 4096
 # define ERROR_UNCLOSE 10
 # define ERROR_D_PIPE 11
+# define ERROR_MALLOC 12
 
 typedef struct s_pipe			t_pipe;
 typedef struct s_list			t_list;
@@ -122,8 +124,8 @@ void							ft_free_data(t_data **data);
 // token func
 int								logical_operator(char c);
 int								files_operator(char c);
-int								handle_quote(t_parsing *parsing, int start,
-									int end);
+int								handle_quote(char *input, int start, int end);
+
 int								pars_token(t_parsing *parsing);
 
 // struct func
@@ -177,5 +179,8 @@ int								join_cmd(t_data *data, t_list *list,
 int								files_error(t_parsing *parsing);
 int								pipe_error(t_parsing *parsing);
 int								special_char_input(t_parsing *parsing);
+int								first_operator(t_parsing *parsing);
+char							*remove_quote(char *str);
+char							**remove_quote_cmd(char *str);
 
 #endif

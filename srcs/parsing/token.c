@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:27:28 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/28 14:50:08 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:31:52 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	create_token_cmd(t_parsing *parsing, int *i, int j)
 {
 	while (parsing->input[*i])
 	{
-		if (logical_operator(parsing->input[*i]) && handle_quote(parsing, j,
+		if (logical_operator(parsing->input[*i]) && handle_quote(parsing->input, j,
 				*i) == -1)
 		{
 			if (create_token(parsing, *i, j, 0) == FAIL)
@@ -41,7 +41,7 @@ int	create_token_cmd(t_parsing *parsing, int *i, int j)
 		}
 		*i += 1;
 	}
-	if (handle_quote(parsing, j, *i) == -1)
+	if (handle_quote(parsing->input, j, *i) == -1)
 	{
 		if (create_token(parsing, *i, j, 0) == FAIL)
 			return (FAIL);
@@ -60,14 +60,14 @@ int	create_token_files(t_parsing *parsing, int *i, int j)
 	while (parsing->input[*i])
 	{
 		if ((logical_operator(parsing->input[*i]) || parsing->input[*i] == ' ')
-			&& handle_quote(parsing, j, *i) == -1)
+			&& handle_quote(parsing->input, j, *i) == -1)
 		{
 			*i -= 1;
 			return (create_token(parsing, *i + 1, j, 2));
 		}
 		*i += 1;
 	}
-	if ( handle_quote(parsing, j, *i) == -1)
+	if ( handle_quote(parsing->input, j, *i) == -1)
 		return (create_token(parsing, *i , j, 2));
 	return (ERROR_UNCLOSE);
 }

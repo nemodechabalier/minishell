@@ -6,13 +6,13 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:47:25 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/23 18:34:14 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:57:01 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(int ac, char **av, char **env)
+ int	main(int ac, char **av, char **env)
 {
 	(void)av;
 	(void)ac;
@@ -25,3 +25,9 @@ int	main(int ac, char **av, char **env)
 	handle_input(data->parsing, data, env);
 	ft_free_data(&data);
 }
+
+//int	main(int ac, char **av)
+//{
+//	(void)ac;
+//	printf("%s", creat_for_char(av[1]));
+//}
