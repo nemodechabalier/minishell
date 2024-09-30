@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:44:52 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/25 17:24:15 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/30 10:19:35 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	close_pipe(t_exec *exec)
 
 int	ft_exec(t_cmd *cmd, t_data *data)
 {
-	(void)data;
+	printf("%s\n", cmd->path_cmd);
+	print_strs(cmd->cmds);
 	if (cmd->skip == 2)
 	{
 		ft_putstr_fd(cmd->cmds[0], 2);

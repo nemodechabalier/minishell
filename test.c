@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 14:47:25 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/30 10:57:56 by nde-chab         ###   ########.fr       */
+/*   Created: 2024/09/29 19:54:00 by nde-chab          #+#    #+#             */
+/*   Updated: 2024/09/29 19:56:08 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "srcs/includes/minishell.h"
 
- int	main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **envp)
 {
-	(void)av;
-	(void)ac;
-	(void)env;
-	t_data *data;
-	data = init_data();
-	if (!data)
-		return (-1);
-	data->parsing = init_parsing();
-	handle_input(data->parsing, data, env);
-	ft_free_data(&data);
+	if (access("/usr/bin/ls", X_OK) == 0)
+	{
+		char *args[] = {"/usr/bin/ls", NULL};
+		execve("/usr/bin/ls", args, envp);
+	}
+	else
+	{
+		perror("Permission denied");
+	}
 }

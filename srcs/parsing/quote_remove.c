@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:21 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/29 18:14:51 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/30 10:24:28 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*remove_quote(char *str)
 
 	i = 0;
 	j = 0;
-	dest = ft_calloc(ft_strlen(str), 1);
+	dest = ft_calloc(ft_strlen(str) + 1, 1);
 	if (!dest)
 		return (NULL);
 	while (str[i])
@@ -106,7 +106,7 @@ char	**remove_quote_cmd(char *str)
 	char	**dest;
 	char	*temp;
 
-	i = 0;
+	i = 1;
 	j = 0;
 	size = 8;
 	count = 0;
@@ -115,9 +115,9 @@ char	**remove_quote_cmd(char *str)
 		return (NULL);
 	while (str[i - 1])
 	{
-		if ((str[i] = ' ' || !str[i]) && handle_quote(str, j, i) == -1)
+		if ((str[i] == ' ' || !str[i]) && handle_quote(str, j, i) == -1)
 		{
-			temp = ft_substr(str, j, i);
+			temp = ft_substr(str, j, i - j);
 			if (!temp)
 				return (ft_free_strs(dest), NULL);
 			dest[count++] = remove_quote(temp);
@@ -127,6 +127,8 @@ char	**remove_quote_cmd(char *str)
 				dest = ft_realloc(dest, &size);
 			if (!dest)
 				return (NULL);
+			while (str[i] == ' ')
+				i++;
 			j = i;
 			free(temp);
 		}

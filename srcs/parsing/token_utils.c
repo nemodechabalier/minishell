@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/29 18:37:23 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/09/29 19:48:53 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ int	handle_quote(char *input, int start, int end)
 	int(i) = start;
 	count = -1;
 	while (input[i] && i < end)
-	count = -1; //quand il y a le bon nb de quote
-	while (input[i] && i < end)
 	{
 		if (input[i] == 39 || input[i] == '"')
 		{
@@ -88,7 +86,6 @@ int	handle_quote(char *input, int start, int end)
 		if (input[i])
 			i++;
 	}
-	printf("%d\n", count);
 	return (count);
 }
 
