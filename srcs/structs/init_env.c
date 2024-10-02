@@ -6,13 +6,13 @@
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 17:03:24 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/30 16:47:53 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:39:29 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_env	*init_env(char *env, char *value)
+t_env	*init_env(char *env)
 {
 	t_env	*new;
 
@@ -22,7 +22,6 @@ t_env	*init_env(char *env, char *value)
 	new->env = ft_strdup(env);
 	if (!env)
 		return (free(new), NULL);
-	new->value = ft_strdup(value);
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
@@ -52,7 +51,7 @@ int	creat_env(t_env *env, t_data *data)
 	i = 0;
 	while (env->env[i])
 	{
-		env = init_env(&env->env[i++], env->value);
+		env = init_env(&env->env[i++]);
 		if (!env)
 			return (FAIL);
 		env_add_back(&data->env, env);

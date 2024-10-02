@@ -6,14 +6,13 @@
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:29:24 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/30 21:17:43 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:31:52 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_exit(int status)
+void	ft_exit(void)
 {
-	(void)status;
 	exit(0);
 }

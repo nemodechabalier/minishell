@@ -6,7 +6,7 @@
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/01 18:56:51 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:44:22 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,14 @@ int	handle_quote(char *input, int start, int end)
 	return (count);
 }
 
-int	find_spaces(t_parsing *parsing)
+int	find_var_env(t_parsing *parsing)
 {
 	int i;
 
 	i = 0;
 	while (parsing->input[i])
 	{
-		if ((parsing->input[i] >= 9 && parsing->input[i] <= 13)
-			|| parsing->input[i] == ' ')
+		if (parsing->input[i] == '$')
 			return (1);
 		i++;
 	}

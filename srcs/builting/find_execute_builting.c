@@ -6,7 +6,7 @@
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:53:56 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/02 15:02:56 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:55:11 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
-//int	find_built_var(t_parsing *parsing)
+//int	find_built_var(t_data *data)
 //{
-	
+//	if (ft_strncmp(data->parsing->tokens->token, "env", 3) == 0) // segfault ici
+//		return (ft_env(), 1)
+//	return (FAIL);
 //}
 
 int	find_built(t_parsing *parsing)
@@ -66,5 +68,7 @@ int	find_built(t_parsing *parsing)
 	}
 	if (ft_strcmp(parsing->tokens->token, "pwd") == 0)
 		return (ft_pwd(), 1);
+	if (ft_strcmp(parsing->tokens->token, "exit") == 0)
+		return (ft_exit(), 1);
 	return (FAIL);
 }

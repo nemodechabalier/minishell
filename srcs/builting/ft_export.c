@@ -6,7 +6,7 @@
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:28:57 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/02 13:55:02 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:51:13 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,18 @@ int	find_var(t_env *env, const char *name)
 	}
 	return (FAIL);
 }
-
-void	export_var(t_env **env, const char *name, const char *value)
+/*
+int ft_export(t_env **env, const char *new_env)
 {
-	t_env	*temp;
-	t_env	*new;
-
+	verification de la variable sous format name=value
+	find_var() pour verifier si elle existe deja
+	si oui mettre valeur a jour
+	si non ajouter a la liste
+	char *equal_sign = ft_strlen(new_env, '=');
+	char *name;
+	t_env *current;
 	
-	if (find_var(*env, name) == FAIL)
-	{
-		new = creat_env(name, value);
-		if (!new)
-			return (NULL);
-		env_add_back(env, new);
-	}
-	//else
-	//{
-	//	temp = *env;
-	//	while (temp != NULL)
-	//	{
-			
-	//	}
-	//}
+	current = *env;
+	
 }
+*/

@@ -6,7 +6,7 @@
 /*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:37 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/02 14:17:35 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:56:42 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ typedef struct s_list
 typedef struct s_env
 {
 	char						*env;
-	char						*value;
 	t_env						*next;
 	t_env						*prev;
 }								t_env;
@@ -140,7 +139,7 @@ void							red_add_back(t_redirection **red,
 t_data							*init_data(void);
 t_parsing						*init_parsing(void);
 t_cmd							*init_cmd(char **env);
-t_env							*init_env(char *env, char *value);
+t_env							*init_env(char *env);
 void							env_add_back(t_env **env, t_env *new);
 int								creat_env(t_env *env, t_data *data);
 
@@ -159,12 +158,12 @@ void							print_token(t_parsing *parsing);
 void							ft_cd(char *path);
 void							ft_echo(char *str);
 void							ft_echo_n(char *str);
-void							ft_env(char **env);
-void							ft_exit(int status);
+void							ft_env(t_data *data);
+void							ft_exit(void);
 void							ft_pwd(void);
 int								ft_unsetenv(const char *name, t_env **env);
 int								find_built(t_parsing *parsing);
-int								find_built_var(t_parsing *parsing);
+int								find_built_var(t_data *data);
 
 // exec func
 int								ft_exec(t_cmd *cmd, t_data *data);
@@ -192,5 +191,7 @@ int								pipe_error(t_parsing *parsing);
 int								special_char_input(t_parsing *parsing);
 char							*remove_quote(char *str);
 char							**remove_quote_cmd(char *str);
+
+int								find_var_env(t_parsing *parsing);
 
 #endif
