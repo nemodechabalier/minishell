@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:27:28 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/29 18:31:52 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:26:44 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	create_token(t_parsing *parsing, int i, int j, int bool)
 	if (!list)
 		return (free(str), FAIL);
 	token_add_back(&parsing->tokens, list);
-	return (SUCCESS);
+	return (find_built(parsing), SUCCESS);
+	//return (find_built_var(parsing), SUCCESS);
 }
 
 int	create_token_cmd(t_parsing *parsing, int *i, int j)
@@ -67,7 +68,7 @@ int	create_token_files(t_parsing *parsing, int *i, int j)
 		}
 		*i += 1;
 	}
-	if ( handle_quote(parsing->input, j, *i) == -1)
+	if (handle_quote(parsing->input, j, *i) == -1)
 		return (create_token(parsing, *i , j, 2));
 	return (ERROR_UNCLOSE);
 }

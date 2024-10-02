@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:23:44 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/17 16:25:40 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/02 13:52:18 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ void	ft_env(char **env)
 	i = 0;
 	if (!env)
 		return ;
+	printf("Coucou\n\n\n\n");
 	while (env[i])
 	{
 		ft_putstr_fd(env[i], 1);
 		i++;
 	}
+	printf("Coucou\n\n\n\n");
 }

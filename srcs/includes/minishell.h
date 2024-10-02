@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:37 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/29 18:31:07 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:17:35 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -104,6 +103,7 @@ typedef struct s_list
 typedef struct s_env
 {
 	char						*env;
+	char						*value;
 	t_env						*next;
 	t_env						*prev;
 }								t_env;
@@ -140,7 +140,7 @@ void							red_add_back(t_redirection **red,
 t_data							*init_data(void);
 t_parsing						*init_parsing(void);
 t_cmd							*init_cmd(char **env);
-t_env							*init_env(char *env);
+t_env							*init_env(char *env, char *value);
 void							env_add_back(t_env **env, t_env *new);
 int								creat_env(t_env *env, t_data *data);
 
@@ -154,6 +154,17 @@ void							free_after_exec(t_data *data);
 // debug func
 void							print_strs(char **strs);
 void							print_token(t_parsing *parsing);
+
+// built func
+void							ft_cd(char *path);
+void							ft_echo(char *str);
+void							ft_echo_n(char *str);
+void							ft_env(char **env);
+void							ft_exit(int status);
+void							ft_pwd(void);
+int								ft_unsetenv(const char *name, t_env **env);
+int								find_built(t_parsing *parsing);
+int								find_built_var(t_parsing *parsing);
 
 // exec func
 int								ft_exec(t_cmd *cmd, t_data *data);
@@ -179,7 +190,6 @@ int								join_cmd(t_data *data, t_list *list,
 int								files_error(t_parsing *parsing);
 int								pipe_error(t_parsing *parsing);
 int								special_char_input(t_parsing *parsing);
-int								first_operator(t_parsing *parsing);
 char							*remove_quote(char *str);
 char							**remove_quote_cmd(char *str);
 

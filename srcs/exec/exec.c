@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:44:52 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/30 10:19:35 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:15:17 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	close_pipe(t_exec *exec)
 
 int	ft_exec(t_cmd *cmd, t_data *data)
 {
-	printf("%s\n", cmd->path_cmd);
-	print_strs(cmd->cmds);
+	//printf("%s\n", cmd->path_cmd);
+	//print_strs(cmd->cmds);
 	if (cmd->skip == 2)
 	{
 		ft_putstr_fd(cmd->cmds[0], 2);

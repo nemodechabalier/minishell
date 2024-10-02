@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/29 19:48:53 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:56:51 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/minishell.h"
 
@@ -46,7 +45,7 @@ int	handle_input(t_parsing *parsing, t_data *data, char **env)
 		{
 			add_history(parsing->input);
 			files_error(parsing);
-			//pars_token(parsing);
+			// pars_token(parsing);
 			//print_token(parsing);
 			creat_lst_red(data, data->parsing->tokens, env);
 			pipe_error(parsing);
@@ -66,6 +65,7 @@ int	handle_quote(char *input, int start, int end)
 
 	int(i) = start;
 	count = -1;
+	count = -1; // quand il y a le bon nb de quote
 	while (input[i] && i < end)
 	{
 		if (input[i] == 39 || input[i] == '"')
@@ -86,6 +86,7 @@ int	handle_quote(char *input, int start, int end)
 		if (input[i])
 			i++;
 	}
+	// printf("%d\n", count);
 	return (count);
 }
 
