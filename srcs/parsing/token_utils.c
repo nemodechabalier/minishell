@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/02 16:44:22 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:42:55 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	files_operator(char c)
 	return (0);
 }
 
-int	handle_input(t_parsing *parsing, t_data *data, char **env)
+int	handle_input(t_parsing *parsing, t_data *data)
 {
 	set_signal_action();
 	while (1)
@@ -47,9 +47,10 @@ int	handle_input(t_parsing *parsing, t_data *data, char **env)
 			files_error(parsing);
 			// pars_token(parsing);
 			//print_token(parsing);
-			creat_lst_red(data, data->parsing->tokens, env);
+			creat_lst_red(data, data->parsing->tokens);
 			pipe_error(parsing);
 			exec_and_red(data, data->exec);
+			close_pipe(data->exec);
 			wait_child(data->exec);
 			free_after_exec(data);
 		}
@@ -65,7 +66,6 @@ int	handle_quote(char *input, int start, int end)
 
 	int(i) = start;
 	count = -1;
-	count = -1; // quand il y a le bon nb de quote
 	while (input[i] && i < end)
 	{
 		if (input[i] == 39 || input[i] == '"')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_lst_red.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:04:07 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/02 13:33:39 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:42:15 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_creat_file(t_exec *exec, char *str)
 	return (FAIL);
 }
 
-int	creat_lst_red(t_data *data, t_list *lst, char **env)
+int	creat_lst_red(t_data *data, t_list *lst)
 {
 	t_exec	*temp;
 
@@ -75,7 +75,7 @@ int	creat_lst_red(t_data *data, t_list *lst, char **env)
 		}
 		else if (lst->type == CMD)
 		{
-			if (split_input(lst, temp, env) == FAIL)
+			if (split_input(lst, temp, data) == FAIL)
 				return (FAIL);
 		}
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:50:10 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/01 19:20:40 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:18:16 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ void	ft_cd(char *path)
 		}
 	}
 	if (chdir(path) != 0)
-		return ;
+		printf("cd: %s: No such file or directory\n", path) ;
 }

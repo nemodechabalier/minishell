@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:05:03 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/25 18:30:35 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:04:30 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,9 @@ int	exec_and_red(t_data *data, t_exec *exec)
 			}
 			temp = temp->next;
 		}
-		if (!temp && exec->cmd)
+		if (!temp && is_builting(exec->cmd) && !exec->next && !exec->prev)
+			ft_exec_builting(exec->cmd, data);
+		else if (!temp && exec->cmd)
 			before_exec(exec, data);
 		exec = exec->next;
 	}

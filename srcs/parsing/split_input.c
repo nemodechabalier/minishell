@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:05:27 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/01 19:08:02 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:44:50 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	find_path(char **paths, t_cmd *cmd)
 		return (FAIL);
 	if (access(cmd->cmd, F_OK) == 0)
 		return (cmd->path_cmd = cmd->cmd, SUCCESS);
+	if (!paths)
+		return (SUCCESS);
 	while (paths[i])
 	{
 		temp = ft_strjoin(paths[i], "/");
@@ -73,14 +75,14 @@ int	add_flag_cmds(t_list *token, t_exec *exec)
 	return (SUCCESS);
 }
 
-int	split_input(t_list *token, t_exec *exec, char **env)
+int	split_input(t_list *token, t_exec *exec, t_data *data)
 {
 	char	**split;
 	t_cmd	*cmd;
 
 	if (exec->cmd)
 		return (add_flag_cmds(token, exec));
-	cmd = init_cmd(env);
+	cmd = init_cmd(data);
 	if (!cmd)
 		return (FAIL);
 	split = remove_quote_cmd(token->token);
@@ -92,4 +94,3 @@ int	split_input(t_list *token, t_exec *exec, char **env)
 	exec->cmd = cmd;
 	return (SUCCESS);
 }
-

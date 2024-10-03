@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 17:03:24 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/02 17:39:29 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:10:07 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	env_size(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->env)
+	{
+		data->env = data->env->next;
+		i++;
+	}
+	return (i);
+}
 
 t_env	*init_env(char *env)
 {
@@ -45,16 +58,20 @@ void	env_add_back(t_env **env, t_env *new)
 	new->prev = temp;
 }
 
-int	creat_env(t_env *env, t_data *data)
+int	creat_env(char **env, t_data *data)
 {
-	int i;
+	t_env	*envs;
+	int		i;
+
+	if (!env)
+		return (SUCCESS);
 	i = 0;
-	while (env->env[i])
+	while (env[i])
 	{
-		env = init_env(&env->env[i++]);
+		envs = init_env(env[i++]);
 		if (!env)
 			return (FAIL);
-		env_add_back(&data->env, env);
+		env_add_back(&data->env, envs);
 	}
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:47:25 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/30 10:57:56 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:43:17 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 	(void)ac;
 	(void)env;
 	t_data *data;
-	data = init_data();
+	data = init_data(env);
 	if (!data)
 		return (-1);
 	data->parsing = init_parsing();
-	handle_input(data->parsing, data, env);
+	handle_input(data->parsing, data);
 	ft_free_data(&data);
 }

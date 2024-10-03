@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:39:56 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/25 15:17:59 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:55:22 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	init_path(char ***paths, char **env)
 	return (FAIL);
 }
 
-t_cmd	*init_cmd(char **env)
+t_cmd	*init_cmd(t_data *data)
 {
 	t_cmd	*cmd;
 
@@ -41,12 +41,15 @@ t_cmd	*init_cmd(char **env)
 	cmd->path_cmd = NULL;
 	cmd->cmd = NULL;
 	cmd->cmds = NULL;
-	cmd->env = env;
+	cmd->env = NULL;
+	if (get_env(data, cmd->env) == FAIL)
+		return (ft_free_cmd(&cmd), NULL);
+	print_strs(cmd->env);
 	cmd->paths = NULL;
 	cmd->skip = 0;
-	if (env)
+	if (cmd->cmd)
 	{
-		if (init_path(&cmd->paths, env) == FAIL)
+		if (init_path(&cmd->paths, cmd->env) == FAIL)
 			return (ft_free_cmd(&cmd), NULL);
 	}
 	return (cmd);
@@ -64,14 +67,17 @@ t_parsing	*init_parsing(void)
 	return (parsing);
 }
 
-t_data	*init_data(void)
+t_data	*init_data(char **env)
 {
 	t_data	*data;
 
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
 		return (NULL);
+	data->env = NULL;
 	data->exec = NULL;
 	data->parsing = NULL;
+	if (creat_env(env, data) == FAIL)
+		return (ft_free_data(&data), NULL);
 	return (data);
 }

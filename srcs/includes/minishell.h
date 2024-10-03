@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:37 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/02 17:56:42 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:55:08 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,12 +136,13 @@ void							ft_free_exec(t_exec **exec);
 void							red_add_back(t_redirection **red,
 									t_redirection *new);
 
-t_data							*init_data(void);
+t_data							*init_data(char **env);
 t_parsing						*init_parsing(void);
-t_cmd							*init_cmd(char **env);
+t_cmd							*init_cmd(t_data *data);
 t_env							*init_env(char *env);
+int								env_size(t_data *data);
 void							env_add_back(t_env **env, t_env *new);
-int								creat_env(t_env *env, t_data *data);
+int								creat_env(char **env, t_data *data);
 
 void							ft_free_data(t_data **data);
 void							ft_free_parsing(t_parsing **parsing);
@@ -172,11 +173,10 @@ void							close_fd(t_redirection *red);
 int								before_exec(t_exec *exec, t_data *data);
 int								here_doc(t_redirection *red);
 int								split_input(t_list *token, t_exec *exec,
-									char **env);
-int								handle_input(t_parsing *parsing, t_data *data,
-									char **env);
-int								creat_lst_red(t_data *data, t_list *lst,
-									char **env);
+									t_data *data);
+
+int								handle_input(t_parsing *parsing, t_data *data);
+int								creat_lst_red(t_data *data, t_list *lst);
 int								exec_and_red(t_data *data, t_exec *exec);
 void							wait_child(t_exec *exec);
 void							close_exec(t_exec *exec);
@@ -191,7 +191,15 @@ int								pipe_error(t_parsing *parsing);
 int								special_char_input(t_parsing *parsing);
 char							*remove_quote(char *str);
 char							**remove_quote_cmd(char *str);
-
+void							close_pipe(t_exec *exec);
 int								find_var_env(t_parsing *parsing);
+
+// test buiilting
+
+int								is_builting(t_cmd *cmd);
+int								ft_exec_builting(t_cmd *cmd, t_data *data);
+
+// utils
+int								get_env(t_data *data, char **env);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:44:52 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/01 18:15:17 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:09:36 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,18 @@ void	close_pipe(t_exec *exec)
 		exec = exec->prev;
 	while (exec->next)
 	{
-		close(exec->pipe[0]);
-		close(exec->pipe[1]);
+		if (close(exec->pipe[0]) == -1)
+			perror("close1 :");
+		if (close(exec->pipe[1]) == -1)
+			perror("close2 :");
 		exec = exec->next;
 	}
 }
 
 int	ft_exec(t_cmd *cmd, t_data *data)
 {
-	//printf("%s\n", cmd->path_cmd);
-	//print_strs(cmd->cmds);
+	// printf("%s\n", cmd->path_cmd);
+	// print_strs(cmd->cmds);
 	if (cmd->skip == 2)
 	{
 		ft_putstr_fd(cmd->cmds[0], 2);
@@ -52,9 +54,15 @@ int	ft_exec(t_cmd *cmd, t_data *data)
 int	dup_pipe(t_exec *exec)
 {
 	if (exec->prev)
-		dup2(exec->prev->pipe[0], STDIN_FILENO);
+	{
+		if (dup2(exec->prev->pipe[0], STDIN_FILENO) == -1)
+			return (perror("pipe1"), close_pipe(exec), FAIL);
+	}
 	if (exec->next)
-		dup2(exec->pipe[1], STDOUT_FILENO);
+	{
+		if (dup2(exec->pipe[1], STDOUT_FILENO) == -1)
+			return (perror("pipe"), close_pipe(exec), FAIL);
+	}
 	close_pipe(exec);
 	return (SUCCESS);
 }
@@ -62,6 +70,8 @@ int	dup_pipe(t_exec *exec)
 int	before_exec(t_exec *exec, t_data *data)
 {
 	t_redirection *temp;
+		
+	if (ft_exec_builting(exec->cmd, data))
 	exec->cmd->pid = fork();
 	if (exec->cmd->pid == -1)
 		return (FAIL);
@@ -75,7 +85,9 @@ int	before_exec(t_exec *exec, t_data *data)
 			temp = temp->next;
 		}
 		if (exec->cmd)
+		{
 			ft_exec(exec->cmd, data);
+		}
 	}
 	return (SUCCESS);
 }

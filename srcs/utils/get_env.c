@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 16:25:13 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/03 13:15:30 by nde-chab         ###   ########.fr       */
+/*   Created: 2024/10/03 14:07:30 by nde-chab          #+#    #+#             */
+/*   Updated: 2024/10/03 15:00:43 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_pwd(void)
+int	get_env(t_data *data, char **env)
 {
-	char	cwd[PATH_MAX];
+	int i;
 
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
-		printf("%s\n", cwd);
-	else
-		ft_putstr_fd("Cannot get current working directory path", 2);
+	i = 0;
+	if (!data->env)
+		return (SUCCESS);
+	env = ft_calloc(sizeof(char *), (env_size(data) + 1));
+	if (!env)
+		return (FAIL);
+	while (data->env)
+	{
+		env[i++] = data->env->env;
+		data->env = data->env->next;
+	}
+	env[i] = NULL;
+	return (SUCCESS);
 }
