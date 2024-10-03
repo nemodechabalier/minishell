@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:37 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/03 14:55:08 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:30:14 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,8 @@ t_data							*init_data(char **env);
 t_parsing						*init_parsing(void);
 t_cmd							*init_cmd(t_data *data);
 t_env							*init_env(char *env);
-int								env_size(t_data *data);
+int								env_size(t_env *env);
+
 void							env_add_back(t_env **env, t_env *new);
 int								creat_env(char **env, t_data *data);
 
@@ -200,6 +201,6 @@ int								is_builting(t_cmd *cmd);
 int								ft_exec_builting(t_cmd *cmd, t_data *data);
 
 // utils
-int								get_env(t_data *data, char **env);
+char							**get_env(t_data *data);
 
 #endif

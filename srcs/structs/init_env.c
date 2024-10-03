@@ -6,20 +6,22 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 17:03:24 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/03 14:10:07 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:16:37 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	env_size(t_data *data)
+int	env_size(t_env *env)
 {
-	int	i;
+	t_env	*temp;
+	int		i;
 
+	temp = env;
 	i = 0;
-	while (data->env)
+	while (temp)
 	{
-		data->env = data->env->next;
+		temp = temp->next;
 		i++;
 	}
 	return (i);

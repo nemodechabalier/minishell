@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:05:27 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/03 14:44:50 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:37:46 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	find_path(char **paths, t_cmd *cmd)
 	char	*temp;
 
 	int(i) = 0;
-	if (!cmd)
-		return (FAIL);
 	if (access(cmd->cmd, F_OK) == 0)
 		return (cmd->path_cmd = cmd->cmd, SUCCESS);
 	if (!paths)
@@ -94,3 +92,4 @@ int	split_input(t_list *token, t_exec *exec, t_data *data)
 	exec->cmd = cmd;
 	return (SUCCESS);
 }
+

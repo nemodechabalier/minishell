@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:39:56 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/03 14:55:22 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:39:10 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ t_cmd	*init_cmd(t_data *data)
 	cmd->cmd = NULL;
 	cmd->cmds = NULL;
 	cmd->env = NULL;
-	if (get_env(data, cmd->env) == FAIL)
+	cmd->env = get_env(data);
+	if (!cmd->env && data->env)
 		return (ft_free_cmd(&cmd), NULL);
-	print_strs(cmd->env);
 	cmd->paths = NULL;
 	cmd->skip = 0;
-	if (cmd->cmd)
+	if (cmd->env)
 	{
 		if (init_path(&cmd->paths, cmd->env) == FAIL)
 			return (ft_free_cmd(&cmd), NULL);

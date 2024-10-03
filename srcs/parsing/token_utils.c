@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/03 14:42:55 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:41:03 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	handle_input(t_parsing *parsing, t_data *data)
 	set_signal_action();
 	while (1)
 	{
-		parsing->input = readline("Minishell beta 2.0$ ");
+		parsing->input = readline("Minishell alpha 1.0$ ");
 		if (!parsing->input)
 			break ;
 		if (*parsing->input)
@@ -86,7 +86,6 @@ int	handle_quote(char *input, int start, int end)
 		if (input[i])
 			i++;
 	}
-	// printf("%d\n", count);
 	return (count);
 }
 
