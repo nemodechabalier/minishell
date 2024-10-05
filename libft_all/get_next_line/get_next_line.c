@@ -6,11 +6,22 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:52:15 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/06/27 13:28:12 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:42:01 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void reinit_save(char *str)
+{
+	int i;
+
+	i = 0;
+	while (i < BUFFER_SIZE)
+	{
+		str[i++] = '\0';
+	}
+}
 
 char	*ft_creat_save(char *line, char *save)
 {
@@ -81,18 +92,18 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) != 0)
-		return (NULL);
+		return (reinit_save(save),NULL);
 	line = ft_str_calloc(BUFFER_SIZE + 1);
 	if (!line)
-		return (NULL);
+		return (reinit_save(save),NULL);
 	line = ft_strncpy(line, save, BUFFER_SIZE + 1);
 	ft_bzero(save, BUFFER_SIZE + 1);
 	line = ft_creat_buffer(fd, line);
 	if (!line)
-		return (NULL);
+		return (reinit_save(save),NULL);
 	ft_creat_save(line, save);
 	line = ft_creat_line(line);
 	if (!line)
-		return (NULL);
+		return (reinit_save(save),NULL);
 	return (line);
 }

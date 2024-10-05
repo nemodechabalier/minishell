@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:21 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/30 10:24:28 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:57:32 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ char	*remove_quote(char *str)
 
 	i = 0;
 	j = 0;
+	if (!str)
+		return (NULL);
 	dest = ft_calloc(ft_strlen(str) + 1, 1);
 	if (!dest)
 		return (NULL);

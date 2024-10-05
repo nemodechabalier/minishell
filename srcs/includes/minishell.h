@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:37 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/03 15:30:14 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:44:29 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_redirection
 
 typedef struct s_cmd
 {
+	int							*read;
 	int							skip;
 	pid_t						pid;
 	char						**env;
@@ -102,7 +103,8 @@ typedef struct s_list
 }								t_list;
 typedef struct s_env
 {
-	char						*env;
+	char						*value;
+	char						*name;
 	t_env						*next;
 	t_env						*prev;
 }								t_env;
@@ -161,11 +163,12 @@ void							ft_cd(char *path);
 void							ft_echo(char *str);
 void							ft_echo_n(char *str);
 void							ft_env(t_data *data);
-void							ft_exit(void);
+void							ft_export(t_data *data, t_cmd *cmd);
 void							ft_pwd(void);
 int								ft_unsetenv(const char *name, t_env **env);
 int								find_built(t_parsing *parsing);
 int								find_built_var(t_data *data);
+void							ft_exit(t_cmd *cmd);
 
 // exec func
 int								ft_exec(t_cmd *cmd, t_data *data);

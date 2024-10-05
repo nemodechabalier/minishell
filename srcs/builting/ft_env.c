@@ -6,33 +6,37 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:23:44 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/03 13:50:36 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:32:29 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// void	ft_env(char **env)
-//{
-//	int i;
+int	find_equal(char *str)
+{
+	int	i;
 
-//	i = 0;
-//	if (!env)
-//		return ;
-//	printf("Coucou\n\n\n\n");
-//	while (env[i])
-//	{
-//		ft_putstr_fd(env[i], 1);
-//		i++;
-//	}
-//	printf("Coucou\n\n\n\n");
-//}
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 void	ft_env(t_data *data)
 {
-	while (data->env)
+	t_env *temp;
+
+	temp = data->env;
+	while (temp)
 	{
-		ft_putstr_fd(data->env->env, 1);
-		data->env = data->env->next;
+		if (temp->value[0])
+		{
+			ft_printf("%s=%s\n", temp->name, temp->value);
+		}
+		temp = temp->next;
 	}
 }

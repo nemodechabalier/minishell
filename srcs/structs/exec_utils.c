@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:12:19 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/25 15:22:40 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:27:59 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	red_add_back(t_redirection **red, t_redirection *new)
 	}
 	while (temp->next)
 		temp = temp->next;
-	(*red)->next = new;
-	new->prev = *red;
+	temp->next = new;
+	new->prev = temp;
 }
 
 t_exec	*new_exec(void)

@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:27:28 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/03 13:07:59 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/04 18:17:45 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ int	pars_token(t_parsing *parsing)
 			create_token_cmd(parsing, &i, j);
 			i--;
 		}
-		i++;
+		if (parsing->input[i])
+			i++;
 	}
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:05:03 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/03 13:04:30 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/04 18:01:48 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,6 @@ void	wait_child(t_exec *exec)
 		exec = exec->next;
 	}
 }
-
-// void	close_exec(t_exec *exec)
-//{
-//	while (exec->prev)
-//		exec = exec->prev;
-//	while (exec)
-//	{
-//		if (exec->red)
-//			close_fd(exec->red);
-//		exec = exec->next;
-//	}
-//}
 
 int	redirection(t_redirection *red, int bool)
 {
@@ -94,6 +82,8 @@ int	exec_and_red(t_data *data, t_exec *exec)
 		temp = exec->red;
 		while (temp)
 		{
+			dup2(data->stdin, STDIN_FILENO);
+			dup2(data->stdout, STDOUT_FILENO);
 			if (exec->red && redirection(temp, 0) == FAIL)
 			{
 				exec = exec->next;
@@ -107,5 +97,7 @@ int	exec_and_red(t_data *data, t_exec *exec)
 			before_exec(exec, data);
 		exec = exec->next;
 	}
+	dup2(data->stdin, STDIN_FILENO);
+	dup2(data->stdout, STDOUT_FILENO);
 	return (SUCCESS);
 }

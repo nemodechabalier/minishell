@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:39:56 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/03 15:39:10 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:53:59 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ t_data	*init_data(char **env)
 	data->env = NULL;
 	data->exec = NULL;
 	data->parsing = NULL;
+	data->stdout = dup(STDOUT_FILENO);
+	data->stdin = dup(STDIN_FILENO);
 	if (creat_env(env, data) == FAIL)
 		return (ft_free_data(&data), NULL);
 	return (data);

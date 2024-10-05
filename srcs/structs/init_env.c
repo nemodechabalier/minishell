@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 17:03:24 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/03 15:16:37 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:56:58 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,24 @@ int	env_size(t_env *env)
 t_env	*init_env(char *env)
 {
 	t_env	*new;
+	int		i;
 
+	i = 0;
 	new = (t_env *)malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
-	new->env = ft_strdup(env);
-	if (!env)
+	i = 0;
+	while (env[i] && env[i] != '=')
+		i++;
+	new->name = ft_substr(env, 0, i);
+	if (!new->name)
 		return (free(new), NULL);
+	if (env[i])
+		new->value = ft_strdup(env + i +1);
+	else
+		new->value = ft_strdup("");
+	if (!new->name)
+		return (free(new->name), free(new), NULL);
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);

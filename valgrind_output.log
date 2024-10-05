@@ -1,7 +1,0 @@
-==818502== Memcheck, a memory error detector
-==818502== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==818502== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==818502== Command: ./minishell
-==818502== Parent PID: 818501
-==818502== 
-==818502== FATAL: can't open suppressions file "/readline.supp"
