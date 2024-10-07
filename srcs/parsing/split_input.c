@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:05:27 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/07 17:35:40 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:09:51 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	find_path(char **paths, t_cmd *cmd)
 	return (SUCCESS);
 }
 
+
 int	add_flag_cmds(t_list *token, t_exec *exec)
 {
 	char	**split;
@@ -60,11 +61,8 @@ int	add_flag_cmds(t_list *token, t_exec *exec)
 		return (ft_free_strs(split), FAIL);
 	i = 0;
 	j = 0;
-	while (exec->cmd->cmds[i])
-	{
+	while (exec->cmd->cmds[i++])
 		temp[i] = exec->cmd->cmds[i];
-		i++;
-	}
 	while (split[j])
 		temp[i++] = split[j++];
 	return (temp[i] = NULL, exec->cmd->cmds = temp, SUCCESS);

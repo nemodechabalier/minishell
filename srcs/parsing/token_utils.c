@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:40:35 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,16 @@ int	handle_input(t_parsing *parsing, t_data *data)
 		if (*parsing->input)
 		{
 			add_history(parsing->input);
-			if (files_error(parsing) == SUCCESS && creat_lst_red(data,
-					data->parsing->tokens) == SUCCESS
-				&& pipe_error(parsing) == SUCCESS && exec_and_red(data,
-					data->exec) == SUCCESS)
-			{
-				close_pipe(data->exec);
-				wait_child(data->exec);
-			}
+			printf("1 : reste des var 0 : non \n%d\n",
+				interpret_var(parsing->input));
+			// if (files_error(parsing) == SUCCESS && creat_lst_red(data,
+			//		data->parsing->tokens) == SUCCESS
+			//	&& pipe_error(parsing) == SUCCESS && exec_and_red(data,
+			//		data->exec) == SUCCESS)
+			//{
+			//	close_pipe(data->exec);
+			//	wait_child(data->exec);
+			//}
 		}
 		free_after_exec(data);
 	}
@@ -62,8 +64,8 @@ int	handle_quote(char *input, int start, int end)
 {
 	char	c;
 
-	int (i) = start;
-	int (count) = -1;
+	int(i) = start;
+	int(count) = -1;
 	while (input[i] && i < end)
 	{
 		if (input[i] == 39 || input[i] == '"')

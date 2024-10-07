@@ -1,0 +1,8 @@
+
+==1441988== Memcheck, a memory error detector
+==1441988== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1441988== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1441988== Command: ./minishell
+==1441988== Parent PID: 1441987
+==1441988== 
+==1441988== FATAL: can't open suppressions file "/readline.supp"
