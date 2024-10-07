@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:16:06 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/07 18:37:46 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/07 19:39:20 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ int								logical_operator(char c);
 int								files_operator(char c);
 int								handle_quote(char *input, int start, int end);
 int								pars_token(t_parsing *parsing);
-int								interpret_var(char *input);
+int								var_env(t_parsing *parsing, t_env *env);
 
 #endif
