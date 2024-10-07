@@ -3,41 +3,88 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:28:51 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/25 17:01:45 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-// pour supp var d'env
-
-int	ft_unsetenv(const char *name, t_env **env)
+int	ft_free_1_env(t_env **env, t_env *next)
 {
-	t_env	*current;
-	int		len_name;
+	t_env	*prev;
 
-	if (name == NULL || ft_strchr(name, '=') != NULL)
-		return (FAIL);
-	current = *env;
-	len_name = ft_strlen(name);
-	while (current != NULL)
+	if (!next->next)
 	{
-		if (ft_strncmp(current->env, name, len_name) == 0
-			&& current->env[len_name] == '=')
+		prev = next->prev;
+		prev->next = NULL;
+	}
+	else if (!next->prev)
+	{
+		*env = next->next;
+		(*env)->prev = NULL;
+	}
+	else
+	{
+		prev = next->prev;
+		prev->next = next->next;
+		prev->next->prev = prev;
+	}
+	return (free(next->name), free(next->value), free(next), SUCCESS);
+}
+
+int	remove_env(t_env **env, char *name, char *value)
+{
+	t_env	*next;
+
+	next = *env;
+	while (next)
+	{
+		if (!ft_strncmp(name, next->name, ft_strlen(name)) && (!value
+				|| !ft_strncmp(value, next->value, ft_strlen(value))))
+			return (ft_free_1_env(env, next));
+		next = next->next;
+	}
+	return (free(name), free(value), SUCCESS);
+}
+
+int	take_name(char *str, t_data *data)
+{
+	char	*value;
+	char	*name;
+	int		i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	name = ft_substr(str, 0, i);
+	if (!name)
+		return (FAIL);
+	if (str[i] == '=')
+	{
+		value = ft_substr(str, i + 1, ft_strlen(str));
+		if (!value)
+			return (free(name), FAIL);
+	}
+	else
+		value = NULL;
+	return (remove_env(&data->env, name, value));
+}
+
+int	ft_unset(t_cmd *cmd, t_data *data)
+{
+	int	i;
+
+	i = 1;
+	while (cmd->cmds[i])
+	{
+		if (take_name(cmd->cmds[i], data) == FAIL)
 		{
-			if (current->prev = NULL)
-				current->prev->next = current->next;
-			else
-				*env = current->next;
-			if (current->next != NULL)
-				current->next->prev = current->prev;
-			free(current->env);
-			free(current);
+			ft_putendl_fd("minishell : unset :ERROR MALLOC", 2);
 		}
-		current = current->next;
+		i++;
 	}
 	return (SUCCESS);
 }

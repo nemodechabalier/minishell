@@ -6,11 +6,11 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:10:34 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/23 15:53:59 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	ft_lstsize(t_list *lst)
 {

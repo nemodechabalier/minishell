@@ -6,11 +6,11 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:39:56 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/04 16:53:59 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	init_path(char ***paths, char **env)
 {
@@ -28,7 +28,7 @@ int	init_path(char ***paths, char **env)
 		}
 		i++;
 	}
-	return (FAIL);
+	return (SUCCESS);
 }
 
 t_cmd	*init_cmd(t_data *data)

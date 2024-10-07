@@ -6,11 +6,11 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:25:13 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/03 13:15:30 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	ft_pwd(void)
 {

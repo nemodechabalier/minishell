@@ -6,15 +6,15 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:37:17 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/29 18:29:59 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	special_char_input(t_parsing *parsing)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (parsing->input[i])

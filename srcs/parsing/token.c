@@ -6,11 +6,11 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:27:28 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/04 18:17:45 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	create_token(t_parsing *parsing, int i, int j, int bool)
 {
@@ -24,7 +24,6 @@ int	create_token(t_parsing *parsing, int i, int j, int bool)
 	if (!list)
 		return (free(str), FAIL);
 	token_add_back(&parsing->tokens, list);
-	// return (find_built(parsing), SUCCESS);
 	return (SUCCESS);
 }
 
@@ -38,7 +37,7 @@ int	create_token_cmd(t_parsing *parsing, int *i, int j)
 			if (create_token(parsing, *i, j, 0) == FAIL)
 				return (FAIL);
 			else
-				return (SUCCESS);
+				return (*i -= 1, SUCCESS);
 		}
 		*i += 1;
 	}
@@ -47,9 +46,9 @@ int	create_token_cmd(t_parsing *parsing, int *i, int j)
 		if (create_token(parsing, *i, j, 0) == FAIL)
 			return (FAIL);
 		else
-			return (SUCCESS);
+			return (*i -= 1, SUCCESS);
 	}
-	return (ERROR_UNCLOSE);
+	return (ft_putendl_fd("error: unclose", 2), -1);
 }
 
 int	create_token_files(t_parsing *parsing, int *i, int j)
@@ -70,15 +69,14 @@ int	create_token_files(t_parsing *parsing, int *i, int j)
 	}
 	if (handle_quote(parsing->input, j, *i) == -1)
 		return (create_token(parsing, *i, j, 2));
-	return (ERROR_UNCLOSE);
+	return (ft_putendl_fd("error: unclose", 2), -1);
 }
 
 int	pars_token(t_parsing *parsing)
 {
-	int	i;
 	int	j;
 
-	i = 0;
+	int (i) = 0;
 	while (parsing->input[i])
 	{
 		while (parsing->input[i] == ' ')
@@ -91,15 +89,12 @@ int	pars_token(t_parsing *parsing)
 		else if (parsing->input[i] == '|')
 		{
 			if (parsing->input[i + 1] == '|')
-				return (printf("syntax error\n"), ERROR_UNCLOSE);
+				return (ft_putendl_fd("error || \n", 2), ERROR_UNCLOSE);
 			if (create_token(parsing, i + 1, j, 1) == FAIL)
 				return (FAIL);
 		}
-		else
-		{
-			create_token_cmd(parsing, &i, j);
-			i--;
-		}
+		else if (create_token_cmd(parsing, &i, j) == FAIL)
+			return (FAIL);
 		if (parsing->input[i])
 			i++;
 	}

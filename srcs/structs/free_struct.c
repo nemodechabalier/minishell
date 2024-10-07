@@ -6,46 +6,11 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:15:09 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/05 16:33:17 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-void	ft_free_redirection(t_redirection **red)
-{
-	t_redirection	*temp;
-	t_redirection	*next;
-
-	temp = *red;
-	while (temp)
-	{
-		if (temp->type == HERE_DOC && temp->file)
-			unlink(temp->file);
-		if (temp->file)
-			free(temp->file);
-		if (temp->stop)
-			free(temp->stop);
-		next = temp->next;
-		free(temp);
-		temp = next;
-	}
-	*red = NULL;
-}
-
-void	ft_free_cmd(t_cmd **cmd)
-{
-	if ((*cmd)->paths)
-		ft_free_strs((*cmd)->paths);
-	if ((*cmd)->cmds[0] != (*cmd)->path_cmd && (*cmd)->path_cmd)
-		free((*cmd)->path_cmd);
-	if ((*cmd)->cmds)
-		ft_free_strs((*cmd)->cmds);
-	if ((*cmd)->env)
-		ft_free_strs((*cmd)->env);
-	free(*cmd);
-	*cmd = NULL;
-}
+#include "../../includes/minishell.h"
 
 void	ft_free_exec(t_exec **exec)
 {

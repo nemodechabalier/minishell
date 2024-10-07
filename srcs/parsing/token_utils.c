@@ -6,11 +6,11 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/03 15:41:03 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	logical_operator(char c)
 {
@@ -44,28 +44,26 @@ int	handle_input(t_parsing *parsing, t_data *data)
 		if (*parsing->input)
 		{
 			add_history(parsing->input);
-			files_error(parsing);
-			// pars_token(parsing);
-			//print_token(parsing);
-			creat_lst_red(data, data->parsing->tokens);
-			pipe_error(parsing);
-			exec_and_red(data, data->exec);
-			close_pipe(data->exec);
-			wait_child(data->exec);
-			free_after_exec(data);
+			if (files_error(parsing) == SUCCESS && creat_lst_red(data,
+					data->parsing->tokens) == SUCCESS
+				&& pipe_error(parsing) == SUCCESS && exec_and_red(data,
+					data->exec) == SUCCESS)
+			{
+				close_pipe(data->exec);
+				wait_child(data->exec);
+			}
 		}
-		parsing->input = NULL;
+		free_after_exec(data);
 	}
 	return (0);
 }
 
 int	handle_quote(char *input, int start, int end)
 {
-	int		count;
 	char	c;
 
-	int(i) = start;
-	count = -1;
+	int (i) = start;
+	int (count) = -1;
 	while (input[i] && i < end)
 	{
 		if (input[i] == 39 || input[i] == '"')
@@ -91,7 +89,7 @@ int	handle_quote(char *input, int start, int end)
 
 int	find_var_env(t_parsing *parsing)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (parsing->input[i])

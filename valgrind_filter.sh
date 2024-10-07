@@ -11,7 +11,7 @@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes \
          --verbose --log-file=$TEMP_OUTPUT $MINISHELL_PATH
 
 # Filtrer la sortie
-cat $TEMP_OUTPUT | grep -v -e "readline" -e "add_history" -e "/bin/ls" | \
+cat $TEMP_OUTPUT | grep -v -e "readline" -e "add_history" -e "*/bin/*" | \
     grep -E "definitely lost|indirectly lost|possibly lost|still reachable"
 
 # Supprimer le fichier temporaire

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   interractive_mode.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:04:35 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/09/25 11:31:45 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	handle_sig(int signum)
 {
-	if (signum == SIGINT) // CTRL-C
+	if (signum == SIGINT)
 	{
 		ft_printf("\n");
 		rl_on_new_line();
@@ -22,12 +22,14 @@ void	handle_sig(int signum)
 		rl_redisplay();
 	}
 }
+
 void	set_signal_action(void)
 {
-	struct sigaction act;
+	struct sigaction	act;
+
 	ft_bzero(&act, sizeof(act));
 	act.sa_handler = &handle_sig;
 	act.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &act, NULL);
-	signal(SIGQUIT, SIG_IGN); // CTRL -\ ne fait rien
+	signal(SIGQUIT, SIG_IGN);
 }

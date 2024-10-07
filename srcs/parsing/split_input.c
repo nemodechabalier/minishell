@@ -6,21 +6,21 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:05:27 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/03 15:37:46 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:35:40 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	find_path(char **paths, t_cmd *cmd)
 {
 	char	*temp;
 
-	int(i) = 0;
-	if (access(cmd->cmd, F_OK) == 0)
+	int (i) = 0;
+	if (ft_strchr(cmd->cmd, '/'))
 		return (cmd->path_cmd = cmd->cmd, SUCCESS);
-	if (!paths)
-		return (SUCCESS);
+	if (!paths || cmd->cmd[0] == '\0')
+		return (cmd->path_cmd = NULL, cmd->skip = 2, SUCCESS);
 	while (paths[i])
 	{
 		temp = ft_strjoin(paths[i], "/");
@@ -40,15 +40,14 @@ int	find_path(char **paths, t_cmd *cmd)
 	cmd->skip = 2;
 	return (SUCCESS);
 }
+
 int	add_flag_cmds(t_list *token, t_exec *exec)
 {
 	char	**split;
 	char	**temp;
-	int		i;
-	int		j;
 
-	i = 0;
-	j = 0;
+	int (i) = 0;
+	int (j) = 0;
 	split = remove_quote_cmd(token->token);
 	if (!split)
 		return (FAIL);
@@ -68,9 +67,7 @@ int	add_flag_cmds(t_list *token, t_exec *exec)
 	}
 	while (split[j])
 		temp[i++] = split[j++];
-	temp[i] = NULL;
-	exec->cmd->cmds = temp;
-	return (SUCCESS);
+	return (temp[i] = NULL, exec->cmd->cmds = temp, SUCCESS);
 }
 
 int	split_input(t_list *token, t_exec *exec, t_data *data)
@@ -92,4 +89,3 @@ int	split_input(t_list *token, t_exec *exec, t_data *data)
 	exec->cmd = cmd;
 	return (SUCCESS);
 }
-

@@ -6,17 +6,18 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:47:25 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/05 16:57:18 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
- int	main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
+	t_data	*data;
+
 	(void)av;
 	(void)ac;
-	t_data *data;
 	data = init_data(env);
 	if (!data)
 		return (-1);

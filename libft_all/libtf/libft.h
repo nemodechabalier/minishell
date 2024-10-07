@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:19:04 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/09/17 15:32:02 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:36:51 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ char					*ft_substr(char const *s, unsigned int start,
 char					*ft_strtrim(char const *s1, char const *set);
 char					*ft_strjoin(char const *s1, char const *s2);
 char					**ft_split(char const *s, char c);
-//int						ft_charset(char *str, char c);
-
+// int						ft_charset(char *str, char c);
 
 #endif

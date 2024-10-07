@@ -6,27 +6,18 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:21 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/05 15:57:32 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:42:04 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-int	is_quote(char c)
-{
-	if (c == 39 || c == '"')
-		return (1);
-	return (0);
-}
+#include "../../includes/minishell.h"
 
 int	is_in_quote(char *str, int end)
 {
-	int		count;
 	char	c;
-	int		i;
 
-	i = 0;
-	count = -1;
+	int (i) = 0;
+	int (count) = -1;
 	while (str[i] && i <= end)
 	{
 		if (str[i] == 39 || str[i] == '"')
@@ -34,7 +25,7 @@ int	is_in_quote(char *str, int end)
 			c = str[i];
 			count = -count;
 			i++;
-			while (str[i] && i <= end)
+			while (str[i] && i < end)
 			{
 				if (str[i] == c)
 				{
@@ -50,24 +41,15 @@ int	is_in_quote(char *str, int end)
 	return (count);
 }
 
-char	**ft_realloc(char **strs, int *size)
+int	is_quote(char *str, int i)
 {
-	char	**new;
-	int		i;
-
-	i = 0;
-	*size = *size * 2;
-	new = malloc((*size) * sizeof(char *));
-	if (!new)
-		return (NULL);
-	while (new[i])
+	if (str[i] == 39 || str[i] == '"')
 	{
-		new[i] = strs[i];
-		i++;
+		if (i == 0 || (is_in_quote(str, i + 1) == -1 || is_in_quote(str, i
+					- 1) == -1))
+			return (0);
 	}
-	new[i] = NULL;
-	free(strs);
-	return (new);
+	return (1);
 }
 
 char	*remove_quote(char *str)
@@ -85,13 +67,7 @@ char	*remove_quote(char *str)
 		return (NULL);
 	while (str[i])
 	{
-		if (is_quote(str[i]))
-		{
-			if (i != 0 && is_in_quote(str, i) == 1 && is_in_quote(str, i
-					- 1) == 1 && str[i] != str[i - 1])
-				dest[j++] = str[i];
-		}
-		else
+		if (is_quote(str, i))
 			dest[j++] = str[i];
 		i++;
 	}
@@ -99,42 +75,44 @@ char	*remove_quote(char *str)
 	return (dest);
 }
 
+t_remove	init_remove(void)
+{
+	t_remove	rm;
+
+	rm.j = 0;
+	rm.i = 1;
+	rm.count = 0;
+	rm.size = 8;
+	rm.temp = NULL;
+	rm.dest = ft_calloc(8, rm.size);
+	return (rm);
+}
+
 char	**remove_quote_cmd(char *str)
 {
-	int		i;
-	int		j;
-	int		size;
-	int		count;
-	char	**dest;
-	char	*temp;
-
-	i = 1;
-	j = 0;
-	size = 8;
-	count = 0;
-	dest = calloc(8, size);
-	if (!dest)
+	t_remove (r) = init_remove();
+	if (!r.dest)
 		return (NULL);
-	while (str[i - 1])
+	while (str[r.i - 1])
 	{
-		if ((str[i] == ' ' || !str[i]) && handle_quote(str, j, i) == -1)
+		if ((str[r.i] == ' ' || !str[r.i]) && handle_quote(str, r.j, r.i) == -1)
 		{
-			temp = ft_substr(str, j, i - j);
-			if (!temp)
-				return (ft_free_strs(dest), NULL);
-			dest[count++] = remove_quote(temp);
-			if (!dest[count - 1])
-				return (ft_free_strs(dest), NULL);
-			if (count - 1 >= size - 1)
-				dest = ft_realloc(dest, &size);
-			if (!dest)
+			r.temp = ft_substr(str, r.j, r.i - r.j);
+			if (!r.temp)
+				return (ft_free_strs(r.dest), NULL);
+			r.dest[r.count++] = remove_quote(r.temp);
+			if (!r.dest[r.count - 1])
+				return (ft_free_strs(r.dest), NULL);
+			if (r.count - 1 >= r.size - 1)
+				r.dest = ft_realloc(r.dest, &r.size);
+			if (!r.dest)
 				return (NULL);
-			while (str[i] == ' ')
-				i++;
-			j = i;
-			free(temp);
+			while (str[r.i] == ' ')
+				r.i++;
+			r.j = r.i;
+			free(r.temp);
 		}
-		i++;
+		r.i++;
 	}
-	return (dest);
+	return (r.dest);
 }

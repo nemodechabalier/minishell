@@ -6,19 +6,18 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:04:07 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/03 14:42:15 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	create_for_file(t_exec *exec, char *str, int bool)
 {
 	t_redirection	*pipes;
 	char			*name;
-	int				i;
 
-	i = 0;
+	int (i) = 0;
 	while (files_operator(str[i]) || str[i] == ' ')
 		i++;
 	name = remove_quote(str + i);
@@ -39,8 +38,7 @@ int	create_for_file(t_exec *exec, char *str, int bool)
 		pipes->type = INPUT;
 	else if (bool == 4)
 		pipes->type = HERE_DOC;
-	red_add_back(&exec->red, pipes);
-	return (SUCCESS);
+	return (red_add_back(&exec->red, pipes), SUCCESS);
 }
 
 int	ft_creat_file(t_exec *exec, char *str)
@@ -56,16 +54,22 @@ int	ft_creat_file(t_exec *exec, char *str)
 	return (FAIL);
 }
 
-int	creat_lst_red(t_data *data, t_list *lst)
+t_exec	*init_exec(t_data *data)
 {
 	t_exec	*temp;
 
-	temp = data->exec;
+	temp = new_exec();
 	if (!temp)
-		temp = new_exec();
+		return (NULL);
+	exec_add_back(&data->exec, temp);
+	return (data->exec);
+}
+
+int	creat_lst_red(t_data *data, t_list *lst)
+{
+	t_exec (*temp) = init_exec(data);
 	if (!temp)
 		return (FAIL);
-	exec_add_back(&data->exec, temp);
 	while (lst)
 	{
 		if (lst->type == FILES)

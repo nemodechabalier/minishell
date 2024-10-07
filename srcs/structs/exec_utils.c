@@ -6,11 +6,11 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:12:19 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/04 17:27:59 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 t_redirection	*init_redirection(void)
 {
@@ -69,6 +69,6 @@ void	exec_add_back(t_exec **exec, t_exec *new)
 	}
 	while (temp->next)
 		temp = temp->next;
-	(*exec)->next = new;
-	new->prev = *exec;
+	temp->next = new;
+	new->prev = temp;
 }

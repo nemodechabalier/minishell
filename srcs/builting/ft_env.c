@@ -6,11 +6,11 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:23:44 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/05 16:32:29 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	find_equal(char *str)
 {
@@ -28,7 +28,7 @@ int	find_equal(char *str)
 
 void	ft_env(t_data *data)
 {
-	t_env *temp;
+	t_env	*temp;
 
 	temp = data->env;
 	while (temp)

@@ -6,11 +6,11 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:44:52 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/05 15:05:14 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	close_pipe(t_exec *exec)
 {
@@ -26,23 +26,20 @@ void	close_pipe(t_exec *exec)
 	}
 }
 
-int	ft_exec(t_cmd *cmd, t_data *data)
+void	ft_exec(t_cmd *cmd, t_data *data)
 {
 	close(data->stdin);
 	close(data->stdout);
 	data->stdin = -1;
 	data->stdout = -1;
+	if (ft_exec_builting(cmd, data))
+		return (ft_free_data(&data), exit(0));
 	if (cmd->skip == 2)
 	{
 		ft_putstr_fd(cmd->cmds[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 		ft_free_data(&data);
-		exit(EXIT_FAILURE);
-	}
-	else if (cmd->skip == 1)
-	{
-		ft_free_data(&data);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	else if (execve(cmd->path_cmd, cmd->cmds, cmd->env) == -1)
 	{
@@ -50,7 +47,6 @@ int	ft_exec(t_cmd *cmd, t_data *data)
 		ft_free_data(&data);
 		exit(EXIT_FAILURE);
 	}
-	return (FAIL);
 }
 
 int	dup_pipe(t_exec *exec)
@@ -71,7 +67,7 @@ int	dup_pipe(t_exec *exec)
 
 int	before_exec(t_exec *exec, t_data *data)
 {
-	t_redirection *temp;
+	t_redirection	*temp;
 
 	exec->cmd->pid = fork();
 	if (exec->cmd->pid == -1)
@@ -90,5 +86,20 @@ int	before_exec(t_exec *exec, t_data *data)
 			ft_exec(exec->cmd, data);
 		}
 	}
+	return (SUCCESS);
+}
+
+int	ft_exec_red_built(t_exec *exec, t_data *data)
+{
+	t_redirection	*temp;
+
+	dup_pipe(exec);
+	temp = exec->red;
+	while (temp)
+	{
+		redirection(temp, 1);
+		temp = temp->next;
+	}
+	ft_exec_builting(exec->cmd, data);
 	return (SUCCESS);
 }
