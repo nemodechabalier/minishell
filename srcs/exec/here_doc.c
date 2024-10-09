@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:27:14 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/08 17:35:47 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:28:29 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	here_doc(t_redirection *red)
 	char	*line;
 	int		len;
 
+	g_verif = 1;
 	red->file = creat_here_doc();
 	if (!red->file)
 		return (FAIL);

@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:17:39 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/08 17:50:14 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:31:31 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_cmd
 
 typedef struct s_exec
 {
+	int							skip;
 	int							pipe[2];
 	t_redirection				*red;
 	t_cmd						*cmd;

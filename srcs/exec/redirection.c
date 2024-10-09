@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:05:03 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/08 18:10:02 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:37:00 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	wait_child(t_exec *exec, t_data *data)
 		data->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status) && data->exit_status == 0)
 		data->exit_status = 128 + WTERMSIG(status);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 int	redirection_2(t_redirection *red, int bool)
@@ -85,36 +86,50 @@ int	redirection(t_redirection *red, int bool)
 	}
 	return (redirection_2(red, bool));
 }
+int	open_file(t_exec *exec, t_data *data)
+{
+	t_exec			*temp;
+	t_redirection	*current;
+
+	temp = exec;
+	while (temp)
+	{
+		current = temp->red;
+		while (current)
+		{
+			dup_2_std(data);
+			if (g_verif == 5)
+				return (dup_2_std(data), FAIL);
+			if (temp->red && redirection(current, 0) == FAIL)
+			{
+				temp = temp->next;
+				temp->skip = 1;
+				if (!temp)
+					data->exit_status = 1;
+				break ;
+			}
+			current = current->next;
+		}
+		temp = temp->next;
+	}
+	g_verif = 0;
+	return (SUCCESS);
+}
 
 int	exec_and_red(t_data *data, t_exec *exec)
 {
-	t_redirection	*temp;
-
 	data->exit_status = 0;
 	creat_pipe(exec);
+	if (open_file(exec, data) == FAIL)
+		return (g_verif = 0, FAIL);
 	while (exec)
 	{
-		temp = exec->red;
-		while (temp)
-		{
-			dup_2_std(data);
-			if (exec->red && redirection(temp, 0) == FAIL)
-			{
-				exec = exec->next;
-				if (!exec)
-					data->exit_status = 1;
-				else
-					temp = exec->red;
-				break ;
-			}
-			temp = temp->next;
-		}
-		if (!temp && is_builting(exec->cmd) && !exec->next && !exec->prev)
+		if (exec->cmd && exec->skip == 0 && is_builting(exec->cmd)
+			&& !exec->next && !exec->prev)
 			ft_exec_red_built((exec), data);
-		else if (!temp && exec->cmd)
+		else if (exec->cmd && exec->skip == 0)
 			before_exec(exec, data);
-		if (exec)
-			exec = exec->next;
+		exec = exec->next;
 	}
 	dup_2_std(data);
 	return (SUCCESS);

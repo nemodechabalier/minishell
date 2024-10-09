@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/08 16:07:19 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:24:56 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ int	handle_input(t_parsing *parsing, t_data *data)
 	set_signal_action();
 	while (1)
 	{
+		dup_2_std(data);
+		g_verif = 2;
 		parsing->input = readline("Minishell 1.0$ ");
+		g_verif = 0;
 		if (!parsing->input)
 			break ;
 		if (*parsing->input)
@@ -47,9 +50,9 @@ int	handle_input(t_parsing *parsing, t_data *data)
 			if (var_env(parsing, data->env, data) == SUCCESS
 				&& files_error(parsing) == SUCCESS && creat_lst_red(data,
 					data->parsing->tokens) == SUCCESS
-				&& pipe_error(parsing) == SUCCESS && exec_and_red(data,
-					data->exec) == SUCCESS)
+				&& pipe_error(parsing) == SUCCESS)
 			{
+				exec_and_red(data, data->exec);
 				close_pipe(data->exec);
 				wait_child(data->exec, data);
 			}
@@ -63,8 +66,8 @@ int	handle_quote(char *input, int start, int end)
 {
 	char	c;
 
-	int (i) = start;
-	int (count) = -1;
+	int(i) = start;
+	int(count) = -1;
 	while (input[i] && i < end)
 	{
 		if (input[i] == 39 || input[i] == '"')

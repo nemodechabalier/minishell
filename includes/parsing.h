@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:16:06 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/08 16:04:31 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:07:00 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ typedef struct s_data			t_data;
 typedef struct s_pipe			t_pipe;
 typedef struct s_parsing		t_parsing;
 typedef struct s_env			t_env;
+typedef struct s_cmd			t_cmd;
+
+extern int						g_verif;
 
 typedef enum a_choice
 {
@@ -69,5 +72,8 @@ char							*take_value(t_env *env, char *name,
 									t_data *data);
 int								var_env(t_parsing *parsing, t_env *env,
 									t_data *data);
+
+// signaux
+void							signal_blocking(t_cmd *cmd);
 
 #endif
