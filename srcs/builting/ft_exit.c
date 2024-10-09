@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:29:24 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:37:46 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ void	ft_exit(t_cmd *cmd)
 		return (ft_putendl_fd("minishell: exit: too many arguments", 2),
 			exit(2));
 	value = ft_atol(cmd->cmds[1]);
-	ft_putstr_fd("exit", 2);
+	ft_putendl_fd("exit", 2);
 	exit(value % 256);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_lst_red.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:04:07 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/07 18:09:25 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:22:34 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	create_for_file(t_exec *exec, char *str, int bool)
 		pipes->type = INPUT;
 	else if (bool == 4)
 		pipes->type = HERE_DOC;
-	return (red_add_back(&exec->red, pipes), SUCCESS);
 	return (red_add_back(&exec->red, pipes), SUCCESS);
 }
 

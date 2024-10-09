@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:17:39 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/07 17:31:47 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:50:14 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "minishell.h"
 # include "parsing.h"
 # include <errno.h>
+# include <sys/stat.h>
+# include <sys/types.h>
 
 typedef struct s_redirection	t_redirection;
 typedef struct s_exec			t_exec;
@@ -46,6 +48,7 @@ typedef struct s_cmd
 {
 	int							skip;
 	pid_t						pid;
+	int							bool;
 	char						**env;
 	char						**paths;
 	char						**cmds;
@@ -62,6 +65,9 @@ typedef struct s_exec
 	t_exec						*prev;
 }								t_exec;
 
+// utils
+int								is_directory(const char *path);
+
 void							ft_exec(t_cmd *cmd, t_data *data);
 t_redirection					*init_redirection(void);
 void							close_fd(t_redirection *red);
@@ -70,10 +76,9 @@ int								here_doc(t_redirection *red);
 int								split_input(t_list *token, t_exec *exec,
 									t_data *data);
 int								ft_exec_red_built(t_exec *exec, t_data *data);
-int								handle_input(t_parsing *parsing, t_data *data);
 int								creat_lst_red(t_data *data, t_list *lst);
 int								exec_and_red(t_data *data, t_exec *exec);
-void							wait_child(t_exec *exec);
+void							wait_child(t_exec *exec, t_data *data);
 void							close_exec(t_exec *exec);
 int								redirection(t_redirection *red, int bool);
 void							set_signal_action(void);
@@ -82,9 +87,6 @@ int								join_cmd(t_data *data, t_list *list,
 									char **env);
 int								files_error(t_parsing *parsing);
 int								pipe_error(t_parsing *parsing);
-int								special_char_input(t_parsing *parsing);
-char							*remove_quote(char *str);
-char							**remove_quote_cmd(char *str);
 void							close_pipe(t_exec *exec);
 int								find_var_env(t_parsing *parsing);
 void							dup_2_std(t_data *data);
@@ -93,8 +95,7 @@ void							dup_2_std(t_data *data);
 int								is_builting(t_cmd *cmd);
 int								ft_exec_builting(t_cmd *cmd, t_data *data);
 void							ft_cd(t_cmd *cmd);
-void							ft_echo(char *str);
-void							ft_echo_n(char *str);
+void							ft_echo(t_cmd *cmd);
 void							ft_env(t_data *data);
 void							ft_export(t_data *data, t_cmd *cmd);
 void							ft_pwd(void);

@@ -6,17 +6,11 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:27:14 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:35:47 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	dup_2_std(t_data *data)
-{
-	dup2(data->stdin, STDIN_FILENO);
-	dup2(data->stdout, STDOUT_FILENO);
-}
 
 static char	*creat_here_doc(void)
 {

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+         #
+#    By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/19 13:46:16 by nde-chab          #+#    #+#              #
-#    Updated: 2024/10/07 18:41:39 by clmanouk         ###   ########.fr        #
+#    Updated: 2024/10/08 17:07:32 by nde-chab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS_DIR = srcs/*/
 FUNC = ft_env.c ft_pwd.c print_all.c main.c token.c token_utils.c exec_utils.c free_func.c
 FUNC += free_struct.c init_struct.c list_utils.c creat_lst_red.c here_doc.c exec.c redirection.c split_input.c init_env.c 
 FUNC += ft_echo.c interractive_mode.c lexer.c quote_remove.c ft_cd.c ft_exit.c find_exec_builting.c ft_export.c
-FUNC += get_env.c ft_unset.c str_utils.c special_case.c
+FUNC += get_env.c ft_unset.c str_utils.c special_case.c handle_var_env.c handle_var_env_2.c execve_utils.c
 SRCS = $(addprefix $(SRCS_DIR), $(FUNC))
 
 OBJS_DIR = obj/

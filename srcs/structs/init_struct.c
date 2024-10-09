@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:39:56 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:50:40 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_cmd	*init_cmd(t_data *data)
 	cmd->cmd = NULL;
 	cmd->cmds = NULL;
 	cmd->env = NULL;
+	cmd->bool = 0;
 	cmd->env = get_env(data);
 	if (!cmd->env && data->env)
 		return (ft_free_cmd(&cmd), NULL);
@@ -77,6 +78,7 @@ t_data	*init_data(char **env)
 	data->env = NULL;
 	data->exec = NULL;
 	data->parsing = NULL;
+	data->exit_status = 0;
 	data->stdout = dup(STDOUT_FILENO);
 	data->stdin = dup(STDIN_FILENO);
 	if (creat_env(env, data) == FAIL)

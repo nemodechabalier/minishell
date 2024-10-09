@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"minishell.h": "c",
-		"ft_printf.h": "c"
+		"ft_printf.h": "c",
+		"type_traits": "c"
 	}
 }

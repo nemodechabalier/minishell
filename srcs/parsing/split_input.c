@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:05:27 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/07 18:09:51 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:24:13 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	find_path(char **paths, t_cmd *cmd)
 	cmd->skip = 2;
 	return (SUCCESS);
 }
-
 
 int	add_flag_cmds(t_list *token, t_exec *exec)
 {

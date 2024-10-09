@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:05:03 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/07 18:09:17 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:10:02 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,23 @@ int	creat_pipe(t_exec *exec)
 	return (SUCCESS);
 }
 
-void	wait_child(t_exec *exec)
+void	wait_child(t_exec *exec, t_data *data)
 {
-	while (exec)
+	t_exec	*temp;
+	int		status;
+
+	temp = exec;
+	status = 0;
+	while (temp)
 	{
-		if (exec->cmd)
-			wait(NULL);
-		exec = exec->next;
+		if (temp->cmd && temp->cmd->bool == 1)
+			temp->cmd->pid = waitpid(temp->cmd->pid, &status, 0);
+		temp = temp->next;
 	}
+	if (WIFEXITED(status) && data->exit_status == 0)
+		data->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status) && data->exit_status == 0)
+		data->exit_status = 128 + WTERMSIG(status);
 }
 
 int	redirection_2(t_redirection *red, int bool)
@@ -81,6 +90,7 @@ int	exec_and_red(t_data *data, t_exec *exec)
 {
 	t_redirection	*temp;
 
+	data->exit_status = 0;
 	creat_pipe(exec);
 	while (exec)
 	{
@@ -91,6 +101,10 @@ int	exec_and_red(t_data *data, t_exec *exec)
 			if (exec->red && redirection(temp, 0) == FAIL)
 			{
 				exec = exec->next;
+				if (!exec)
+					data->exit_status = 1;
+				else
+					temp = exec->red;
 				break ;
 			}
 			temp = temp->next;

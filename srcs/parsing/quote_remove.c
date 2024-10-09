@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_remove.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:21 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/07 18:09:40 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:16:57 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	is_in_quote(char *str, int end)
 {
 	char	c;
 
-	int (i) = 0;
-	int (count) = -1;
+	int(i) = 0;
+	int(count) = -1;
 	while (str[i] && i <= end)
 	{
 		if (str[i] == 39 || str[i] == '"')
@@ -45,8 +45,7 @@ int	is_quote(char *str, int i)
 {
 	if (str[i] == 39 || str[i] == '"')
 	{
-		if (i == 0 || (is_in_quote(str, i + 1) == -1 || is_in_quote(str, i
-					- 1) == -1))
+		if (i == 0 || which_quote(str, i) == 0 || which_quote(str, i) == str[i])
 			return (0);
 	}
 	return (1);
@@ -90,7 +89,7 @@ t_remove	init_remove(void)
 
 char	**remove_quote_cmd(char *str)
 {
-	t_remove (r) = init_remove();
+	t_remove(r) = init_remove();
 	if (!r.dest)
 		return (NULL);
 	while (str[r.i - 1])

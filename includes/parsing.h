@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:16:06 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/07 19:39:20 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:04:31 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_list			t_list;
 typedef struct s_data			t_data;
 typedef struct s_pipe			t_pipe;
 typedef struct s_parsing		t_parsing;
+typedef struct s_env			t_env;
 
 typedef enum a_choice
 {
@@ -46,11 +47,27 @@ typedef struct s_list
 	t_list						*prev;
 }								t_list;
 
+// paring
 t_parsing						*init_parsing(void);
 int								logical_operator(char c);
 int								files_operator(char c);
 int								handle_quote(char *input, int start, int end);
 int								pars_token(t_parsing *parsing);
-int								var_env(t_parsing *parsing, t_env *env);
+
+char							*remove_quote(char *str);
+char							**remove_quote_cmd(char *str);
+int								special_char_input(t_parsing *parsing);
+int								handle_input(t_parsing *parsing, t_data *data);
+
+// env var
+int								which_quote(char *input, int end);
+char							*take_name_2(char *input, int position);
+int								interpret_var(char *input);
+int								is_here_doc(char *input, int position);
+char							*take_rest(char *input, int position);
+char							*take_value(t_env *env, char *name,
+									t_data *data);
+int								var_env(t_parsing *parsing, t_env *env,
+									t_data *data);
 
 #endif
