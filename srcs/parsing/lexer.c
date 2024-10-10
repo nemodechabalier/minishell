@@ -3,123 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 15:24:35 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/10 14:30:58 by nde-chab         ###   ########.fr       */
+/*   Created: 2024/10/10 15:27:44 by clmanouk          #+#    #+#             */
+/*   Updated: 2024/10/10 15:27:47 by clmanouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_print_error(char *str, int i, int bool)
+int	create_for_file(t_exec *exec, char *str, int bool)
 {
-	if (bool == 0)
-	{
-		ft_putendl_fd("minishell: syntax error near unexpected token `newline'",
-			2);
-		return ;
-	}
-	while (i > 0)
-	{
-		if (logical_operator(str[i]))
-			break ;
-		i--;
-	}
-	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
-	if (logical_operator(str[i]))
-		write(2, &str[i], 1);
-	else
-		write(2, "<", 1);
-	write(2, "'\n", 2);
-}
-
-int	ft_file_unclose(t_parsing *parsing)
-{
-	int	count;
+	t_redirection	*pipes;
+	char			*name;
 
 	int (i) = 0;
-	while (parsing->input[i])
-	{
-		count = 0;
-		if (files_operator(parsing->input[i]))
-		{
-			while (files_operator(parsing->input[i])
-				|| space(parsing->input[i]))
-			{
-				if (files_operator(parsing->input[i]))
-					count++;
-				if (count > 2)
-					return (ft_print_error(parsing->input, i, 1), FAIL);
-				i++;
-			}
-			if (!parsing->input[i])
-				return (ft_print_error(parsing->input, i, 0), FAIL);
-			if (parsing->input[i] == '|')
-				return (ft_print_error(parsing->input, i, 1), FAIL);
-		}
+	while (files_operator(str[i]) || space(str[i]))
 		i++;
-	}
-	return (SUCCESS);
-}
-
-int	special_char_input(t_parsing *parsing)
-{
-	int	i;
-
-	i = 0;
-	while (parsing->input[i])
-	{
-		if (parsing->input[i] == 92 || parsing->input[i] == '&')
-			return (ft_putendl_fd("Error: forbidden character", 2), FAIL);
-		i++;
-	}
-	return (ft_file_unclose(parsing));
-}
-
-int	files_error(t_parsing *parsing)
-{
-	int (i) = 0;
-	while (parsing->input[i])
-	{
-		while (space(parsing->input[i]))
-			i++;
-		if (special_char_input(parsing) == FAIL)
-			return (-1);
-		if (files_operator(parsing->input[i]))
-		{
-			i++;
-			if (parsing->input[i])
-			{
-				if (files_operator(parsing->input[i]))
-					i++;
-				while (space(parsing->input[i]))
-					i++;
-				if (files_operator(parsing->input[i]) || !parsing->input[i])
-					return (ft_print_error(parsing->input, i, 1), -1);
-			}
-		}
-		if (parsing->input[i])
-			i++;
-	}
-	return (pars_token(parsing));
-}
-
-int	pipe_error(t_parsing *parsing)
-{
-	if (!parsing->tokens)
+	name = remove_quote(str + i);
+	if (!name)
 		return (FAIL);
-	if (parsing->tokens && parsing->tokens->type == PIPES)
-		return (ft_putendl_fd("syntax error near unexpected token `|'", 2), -1);
-	while (parsing->tokens->next != NULL)
+	pipes = init_redirection();
+	if (!pipes)
+		return (FAIL);
+	if (bool == 1 || bool == 2 || bool == 3)
+		pipes->file = name;
+	else
+		pipes->stop = name;
+	if (bool == 1)
+		pipes->type = TRUNC;
+	else if (bool == 2)
+		pipes->type = APEND;
+	else if (bool == 3)
+		pipes->type = INPUT;
+	else if (bool == 4)
+		pipes->type = HERE_DOC;
+	return (red_add_back(&exec->red, pipes), SUCCESS);
+}
+
+int	ft_creat_file(t_exec *exec, char *str)
+{
+	if (str[0] == '>' && !files_operator(str[1]))
+		return (create_for_file(exec, str, 1));
+	else if (str[0] == '>' && !files_operator(str[2]))
+		return (create_for_file(exec, str, 2));
+	else if (str[0] == '<' && !files_operator(str[1]))
+		return (create_for_file(exec, str, 3));
+	else if (str[0] == '<' && str[1] == '<' && !files_operator(str[2]))
+		return (create_for_file(exec, str, 4));
+	return (FAIL);
+}
+
+t_exec	*init_exec(t_data *data)
+{
+	t_exec	*temp;
+
+	temp = new_exec();
+	if (!temp)
+		return (NULL);
+	exec_add_back(&data->exec, temp);
+	return (data->exec);
+}
+
+int	creat_lst_red(t_data *data, t_list *lst)
+{
+	t_exec (*temp) = init_exec(data);
+	if (!temp)
+		return (FAIL);
+	while (lst)
 	{
-		if (parsing->tokens->type == PIPES
-			&& parsing->tokens->next->type == PIPES)
-			return (ft_putendl_fd("syntax error near unexpected token `|'", 2),
-				-1);
-		parsing->tokens = parsing->tokens->next;
+		if (lst->type == FILES)
+		{
+			if (ft_creat_file(temp, lst->token) == FAIL)
+				return (FAIL);
+		}
+		else if (lst->type == CMD)
+		{
+			if (split_input(lst, temp, data) == FAIL)
+				return (FAIL);
+		}
+		else
+		{
+			temp = new_exec();
+			if (!temp)
+				return (FAIL);
+			exec_add_back(&data->exec, temp);
+		}
+		lst = lst->next;
 	}
-	if (parsing->tokens && parsing->tokens->type == PIPES)
-		return (ft_putendl_fd("error: unclose", 2), -1);
 	return (SUCCESS);
 }

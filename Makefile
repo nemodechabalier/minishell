@@ -3,66 +3,103 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+         #
+#    By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/19 13:46:16 by nde-chab          #+#    #+#              #
-#    Updated: 2024/10/10 15:07:41 by nde-chab         ###   ########.fr        #
+#    Updated: 2024/10/10 15:55:02 by clmanouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 LIBFT = libft_all/libft_printf_gnl.a
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g3 -g
-INCLUDES = -I /srcs/includes/.
-
-SRCS_DIR = srcs/*/
-
-FUNC = ft_env.c ft_pwd.c print_all.c main.c token.c token_utils.c exec_utils.c free_func.c
-FUNC += free_struct.c init_struct.c list_utils.c creat_lst_red.c here_doc.c exec.c redirection.c split_input.c init_env.c 
-FUNC += ft_echo.c interractive_mode.c lexer.c quote_remove.c ft_cd.c ft_exit.c find_exec_builting.c ft_export.c
-FUNC += get_env.c ft_unset.c str_utils.c special_case.c handle_var_env.c handle_var_env_2.c execve_utils.c count_line.c
-SRCS = $(addprefix $(SRCS_DIR), $(FUNC))
-
+CFLAGS = -Wall -Wextra -Werror -g3
+INCLUDES = -I includes
+SRCS_DIR = srcs/
 OBJS_DIR = obj/
-OBJS = $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.c=.o)))
 
-# Rule to compile .c files to .o files
-$(OBJS_DIR)%.o: $(SRCS_DIR)%.c
-	@echo "\033[1;34mCompilation de $<...\033[0m"
-	$(MAKE) -C libft_all/
-	@mkdir -p $(OBJS_DIR)
-	$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
-	@echo "\033[1;32mFichier objet $@ créé avec succès !\033[0m"
+# Regroupement des sources par catégorie
+BUILTIN_SRCS = ft_env.c ft_pwd.c ft_echo.c ft_cd.c ft_exit.c find_exec_builting.c ft_export.c ft_unset.c
+EXEC_SRCS = here_doc.c exec.c redirection.c execve_utils.c
+PARSING_SRCS = token_create.c token_utils.c error_parsing.c split_input.c lexer.c quote_remove.c special_case.c handle_var_env.c handle_var_env_2.c
+STRUCT_SRCS = exec_utils.c init_struct.c list_utils.c init_env.c
+UTILS_SRCS = free_func.c free_struct.c get_env.c str_utils.c count_line.c
+SIGNAL_SRCS = handle_signal.c
+MAIN_SRCS = main.c
 
+# Ajout des préfixes de répertoire
+SRCS = $(addprefix $(SRCS_DIR)builting/, $(BUILTIN_SRCS)) \
+       $(addprefix $(SRCS_DIR)exec/, $(EXEC_SRCS)) \
+       $(addprefix $(SRCS_DIR)parsing/, $(PARSING_SRCS)) \
+       $(addprefix $(SRCS_DIR)structs/, $(STRUCT_SRCS)) \
+       $(addprefix $(SRCS_DIR)utils/, $(UTILS_SRCS)) \
+       $(addprefix $(SRCS_DIR)signal/, $(SIGNAL_SRCS)) \
+       $(addprefix $(SRCS_DIR)main/, $(MAIN_SRCS))
 
+OBJS = $(patsubst $(SRCS_DIR)%.c,$(OBJS_DIR)%.o,$(SRCS))
 
+# Colors and styles
+BLUE = \033[1;34m
+GREEN = \033[1;32m
+YELLOW = \033[1;33m
+RED = \033[1;31m
+BOLD = \033[1m
+RESET = \033[0m
 
-# Rule to create the final executable
-$(NAME): $(OBJS) $(LIBFT)
-	@echo "\033[1;32mLinking objects...\033[0m"
-	$(CC) $(FLAGS) -lreadline $(OBJS) $(LIBFT) -o $(NAME)
-	@echo "\033[1;32mCompilation terminée avec succès ! 🎉\033[0m"
-
-	
-# Default target	
-all : $(NAME)
-
-# Clean object files
-clean:
-	@echo "\033[1;33mNettoyage des fichiers objets...\033[0m"
-	$(MAKE) -C libft_all/ clean
-	rm -rf $(OBJS_DIR)
-	@echo "\033[1;32mNettoyage terminé.\033[0m"
-
-# Full clean
-fclean: clean
-	@echo "\033[1;33mSuppression de l'exécutable...\033[0m"
-	$(MAKE) -C libft_all/ fclean
-	rm -f $(NAME)
-	@echo "\033[1;32mSuppression complète effectuée.\033[0m"
-
-# Recompile everything
-re: fclean all
+# Counter for progress bar
+COUNTER = 0
+TOTAL_FILES = $(words $(SRCS))
+BAR_LENGTH = 40
 
 .PHONY: all clean fclean re
+
+all: $(NAME)
+
+$(NAME): $(OBJS) $(LIBFT)
+	@echo "$(GREEN)Linking objects...$(RESET)"
+	@$(CC) $(CFLAGS) -o $@ $^ -lreadline
+	@echo "$(GREEN)Compilation terminée avec succès ! 🎉$(RESET)"
+	@echo "\n$(RED)$$MINISHELL_LOGO$(RESET)"
+
+# Règle modifiée pour la compilation des fichiers objets avec barre de progression
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c
+	@mkdir -p $(@D)
+	@$(eval COUNTER=$(shell echo $$(($(COUNTER) + 1))))
+	@$(eval PERCENTAGE=$(shell echo $$(($(COUNTER) * 100 / $(TOTAL_FILES)))))
+	@$(eval FILLED=$(shell echo $$(($(COUNTER) * $(BAR_LENGTH) / $(TOTAL_FILES)))))
+	@$(eval EMPTY=$(shell echo $$(($(BAR_LENGTH) - $(FILLED)))))
+	@printf "\r$(BLUE)Compiling [%-*s%*s] %3d%% %s$(RESET)" $(BAR_LENGTH) "$$(printf '%0.s#' $$(seq 1 $(FILLED)))" $(EMPTY) " " $(PERCENTAGE) "$<"
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(LIBFT):
+	@$(MAKE) -C libft_all
+
+clean:
+	@echo "$(YELLOW)Nettoyage des fichiers objets...$(RESET)"
+	@$(MAKE) -C libft_all clean
+	@rm -rf $(OBJS_DIR)
+	@echo "$(GREEN)Nettoyage terminé.$(RESET)"
+
+fclean: clean
+	@echo "$(YELLOW)Suppression de l'exécutable...$(RESET)"
+	@$(MAKE) -C libft_all fclean
+	@rm -f $(NAME)
+	@echo "$(GREEN)Suppression complète effectuée.$(RESET)"
+
+re: fclean all
+
+# ASCII art logo for MINISHELL
+define MINISHELL_LOGO
+
+ ███▄ ▄███▓ ██▓ ███▄    █  ██▓  ██████  ██░ ██ ▓█████  ██▓     ██▓    
+▓██▒▀█▀ ██▒▓██▒ ██ ▀█   █ ▓██▒▒██    ▒ ▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒    
+▓██    ▓██░▒██▒▓██  ▀█ ██▒▒██▒░ ▓██▄   ▒██▀▀██░▒███   ▒██░    ▒██░    
+▒██    ▒██ ░██░▓██▒  ▐▌██▒░██░  ▒   ██▒░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░    
+▒██▒   ░██▒░██░▒██░   ▓██░░██░▒██████▒▒░▓█▒░██▓░▒████▒░██████▒░██████▒
+░ ▒░   ░  ░░▓  ░ ▒░   ▒ ▒ ░▓  ▒ ▒▓▒ ▒ ░ ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░
+░  ░      ░ ▒ ░░ ░░   ░ ▒░ ▒ ░░ ░▒  ░ ░ ▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░
+░      ░    ▒ ░   ░   ░ ░  ▒ ░░  ░  ░   ░  ░░ ░   ░     ░ ░     ░ ░   
+       ░    ░           ░  ░        ░   ░  ░  ░   ░  ░    ░  ░    ░  ░
+                                                                      
+endef
+export MINISHELL_LOGO
