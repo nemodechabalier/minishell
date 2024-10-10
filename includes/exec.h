@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:17:39 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/09 15:31:31 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:22:58 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,11 @@ void							dup_2_std(t_data *data);
 // builting
 int								is_builting(t_cmd *cmd);
 int								ft_exec_builting(t_cmd *cmd, t_data *data);
-void							ft_cd(t_cmd *cmd);
+void							ft_cd(t_cmd *cmd, t_data *data);
 void							ft_echo(t_cmd *cmd);
 void							ft_env(t_data *data);
 void							ft_export(t_data *data, t_cmd *cmd);
-void							ft_pwd(void);
+void							ft_pwd(t_data *data);
 void							ft_exit(t_cmd *cmd);
 int								ft_unset(t_cmd *cmd, t_data *data);
 #endif

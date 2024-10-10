@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:37 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/08 16:02:12 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:01:21 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ void					ft_free_strs(char **strs);
 void					ft_free_data(t_data **data);
 void					ft_free_redirection(t_redirection **red);
 void					ft_free_cmd(t_cmd **cmd);
+void					ft_free_data(t_data **data);
+void					ft_free_parsing(t_parsing **parsing);
+void					ft_free_cmd(t_cmd **cmd);
+void					ft_free_list(t_list **list);
+void					ft_free_pipe(t_pipe **pipe);
+void					free_after_exec(t_data *data);
 
 // struct func
 void					token_add_back(t_list **lst, t_list *new);
@@ -87,13 +93,6 @@ int						env_size(t_env *env);
 
 void					env_add_back(t_env **env, t_env *new);
 int						creat_env(char **env, t_data *data);
-
-void					ft_free_data(t_data **data);
-void					ft_free_parsing(t_parsing **parsing);
-void					ft_free_cmd(t_cmd **cmd);
-void					ft_free_list(t_list **list);
-void					ft_free_pipe(t_pipe **pipe);
-void					free_after_exec(t_data *data);
 
 // debug func
 void					print_strs(char **strs);

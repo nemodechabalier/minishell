@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:05:03 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/09 16:37:00 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:20:16 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,6 @@ int	creat_pipe(t_exec *exec)
 		exec = exec->next;
 	}
 	return (SUCCESS);
-}
-
-void	wait_child(t_exec *exec, t_data *data)
-{
-	t_exec	*temp;
-	int		status;
-
-	temp = exec;
-	status = 0;
-	while (temp)
-	{
-		if (temp->cmd && temp->cmd->bool == 1)
-			temp->cmd->pid = waitpid(temp->cmd->pid, &status, 0);
-		temp = temp->next;
-	}
-	if (WIFEXITED(status) && data->exit_status == 0)
-		data->exit_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status) && data->exit_status == 0)
-		data->exit_status = 128 + WTERMSIG(status);
-	signal(SIGQUIT, SIG_IGN);
 }
 
 int	redirection_2(t_redirection *red, int bool)
@@ -86,6 +66,7 @@ int	redirection(t_redirection *red, int bool)
 	}
 	return (redirection_2(red, bool));
 }
+
 int	open_file(t_exec *exec, t_data *data)
 {
 	t_exec			*temp;
@@ -102,9 +83,8 @@ int	open_file(t_exec *exec, t_data *data)
 				return (dup_2_std(data), FAIL);
 			if (temp->red && redirection(current, 0) == FAIL)
 			{
-				temp = temp->next;
 				temp->skip = 1;
-				if (!temp)
+				if (!temp->next)
 					data->exit_status = 1;
 				break ;
 			}
@@ -112,8 +92,7 @@ int	open_file(t_exec *exec, t_data *data)
 		}
 		temp = temp->next;
 	}
-	g_verif = 0;
-	return (SUCCESS);
+	return (g_verif = 0, SUCCESS);
 }
 
 int	exec_and_red(t_data *data, t_exec *exec)
@@ -121,7 +100,7 @@ int	exec_and_red(t_data *data, t_exec *exec)
 	data->exit_status = 0;
 	creat_pipe(exec);
 	if (open_file(exec, data) == FAIL)
-		return (g_verif = 0, FAIL);
+		return (FAIL);
 	while (exec)
 	{
 		if (exec->cmd && exec->skip == 0 && is_builting(exec->cmd)

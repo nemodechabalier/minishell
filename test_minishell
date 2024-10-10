@@ -16,3 +16,15 @@ cmd | red red red cmd | cmd | red cmd
 ls >> | ls
  ls | ls'
 pipe unclose
+
+echo -na
+Minishell 1.0$ 
+ 
+export HOLA=bonjour BYE=casse-toi
+echo $HOLA et $BYE
+
+
+export BYE="casse-toi
+echo bonjour et casse-toi
+echo  et "
+ls	-a

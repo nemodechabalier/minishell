@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:16:06 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/09 16:07:00 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:20:31 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,12 @@ int								logical_operator(char c);
 int								files_operator(char c);
 int								handle_quote(char *input, int start, int end);
 int								pars_token(t_parsing *parsing);
+void							do_minishell(t_parsing *parsing, t_data *data);
 
 char							*remove_quote(char *str);
 char							**remove_quote_cmd(char *str);
 int								special_char_input(t_parsing *parsing);
-int								handle_input(t_parsing *parsing, t_data *data);
+void							handle_input(t_parsing *parsing, t_data *data);
 
 // env var
 int								which_quote(char *input, int end);
@@ -72,8 +73,8 @@ char							*take_value(t_env *env, char *name,
 									t_data *data);
 int								var_env(t_parsing *parsing, t_env *env,
 									t_data *data);
-
-// signaux
-void							signal_blocking(t_cmd *cmd);
+char							*take_end_of_l(char *str);
+int								space(char c);
+int								count_line(int bool);
 
 #endif

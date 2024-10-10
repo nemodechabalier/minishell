@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:27:28 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/07 18:10:02 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:29:51 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ int	create_token_files(t_parsing *parsing, int *i, int j)
 {
 	while (files_operator(parsing->input[*i]))
 		*i += 1;
-	while ((parsing->input[*i]) == ' ')
+	while (space(parsing->input[*i]))
 		*i += 1;
 	while (parsing->input[*i])
 	{
-		if ((logical_operator(parsing->input[*i]) || parsing->input[*i] == ' ')
+		if ((logical_operator(parsing->input[*i]) || space(parsing->input[*i]))
 			&& handle_quote(parsing->input, j, *i) == -1)
 		{
 			*i -= 1;
@@ -79,7 +79,7 @@ int	pars_token(t_parsing *parsing)
 	int (i) = 0;
 	while (parsing->input[i])
 	{
-		while (parsing->input[i] == ' ')
+		while (space(parsing->input[i]))
 			i++;
 		j = i;
 		if (parsing->input[i] == '\0')

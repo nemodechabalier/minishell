@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:28:57 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/07 20:36:52 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:46:44 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	ft_export(t_data *data, t_cmd *cmd)
 			ft_putstr_fd("minishell: export: `", 2);
 			ft_putstr_fd(cmd->cmds[i], 2);
 			ft_putendl_fd("': not a valid identifier", 2);
+			data->exit_status = 1;
 		}
 		i++;
 	}

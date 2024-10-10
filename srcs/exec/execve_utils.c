@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:58:11 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/08 17:35:53 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:47:48 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,24 @@ void	dup_2_std(t_data *data)
 {
 	dup2(data->stdin, STDIN_FILENO);
 	dup2(data->stdout, STDOUT_FILENO);
+}
+
+void	wait_child(t_exec *exec, t_data *data)
+{
+	t_exec	*temp;
+	int		status;
+
+	temp = exec;
+	status = 0;
+	while (temp)
+	{
+		if (temp->cmd && temp->cmd->bool == 1)
+			temp->cmd->pid = waitpid(temp->cmd->pid, &status, 0);
+		temp = temp->next;
+	}
+	if (WIFEXITED(status) && data->exit_status == 0)
+		data->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status) && data->exit_status == 0)
+		data->exit_status = 128 + WTERMSIG(status);
+	signal(SIGQUIT, SIG_IGN);
 }

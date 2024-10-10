@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:16:58 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/08 16:05:38 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:31:28 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	which_quote(char *input, int end)
 	char	c;
 
 	c = 0;
-	int(i) = 0;
+	int (i) = 0;
 	while (input[i] && i < end)
 	{
 		if (input[i] == 39 || input[i] == '"')
@@ -111,7 +111,9 @@ int	var_env(t_parsing *parsing, t_env *env, t_data *data)
 	i = 0;
 	while (interpret_var(parsing->input))
 	{
-		if (parsing->input[i] == '$' && which_quote(parsing->input, i) != 39
+		if (parsing->input[i] == '$' && parsing->input[i + 1] != '$'
+			&& !space(parsing->input[i + 1]) && parsing->input[i + 1] != '\0'
+			&& which_quote(parsing->input, i) != 39
 			&& !is_here_doc(parsing->input, i))
 		{
 			if (add_var(parsing, env, i, data) == FAIL)

@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:34:44 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/08 16:03:42 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:33:10 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	interpret_var(char *input)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == '$' && which_quote(input, i) != 39
+		if (input[i] == '$' && input[i + 1] != '$' && !space(input[i + 1])
+			&& input[i + 1] != '\0' && which_quote(input, i) != 39
 			&& !is_here_doc(input, i))
 			return (1);
 		i++;
@@ -31,8 +32,8 @@ static int	h_quot(char *input, int start, int end)
 {
 	char	c;
 
-	int(i) = start;
-	int(count) = -1;
+	int (i) = start;
+	int (count) = -1;
 	while (input[i] && i < end)
 	{
 		if (input[i] == 39 || input[i] == '"')
@@ -58,8 +59,8 @@ static int	h_quot(char *input, int start, int end)
 
 int	is_here_doc(char *input, int position)
 {
-	int(i) = 0;
-	int(bool) = 0;
+	int (i) = 0;
+	int (bool) = 0;
 	while (input[i] && i < position)
 	{
 		if (input[i] == '<' && input[i + 1] == '<' && h_quot(input, 0, i) == -1)
@@ -67,11 +68,11 @@ int	is_here_doc(char *input, int position)
 			bool = 1;
 			while (files_operator(input[i]))
 				i++;
-			while (input[i] == ' ' && input[i] && i <= position)
+			while (space(input[i]) && input[i] && i <= position)
 				i++;
 			while (i < position)
 			{
-				if (input[i] == ' ' && handle_quote(input, 0, i) == -1)
+				if (space(input[i]) && handle_quote(input, 0, i) == -1)
 				{
 					bool = 0;
 					break ;

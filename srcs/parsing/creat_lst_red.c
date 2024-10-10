@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:04:07 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/08 14:22:34 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:32:28 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	create_for_file(t_exec *exec, char *str, int bool)
 	char			*name;
 
 	int (i) = 0;
-	while (files_operator(str[i]) || str[i] == ' ')
+	while (files_operator(str[i]) || space(str[i]))
 		i++;
 	name = remove_quote(str + i);
 	if (!name)

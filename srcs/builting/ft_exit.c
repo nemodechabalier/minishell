@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:29:24 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/08 15:37:46 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:33:36 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_is_sup_long(const char *str)
 	result = 0;
 	sign = 1;
 	i = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+	while ((str[i] >= 9 && str[i] <= 13) || space(str[i]))
 		i++;
 	if (str[i] == '-')
 		sign = -1;
@@ -45,7 +45,7 @@ static long	ft_atol(const char *str)
 	result = 0;
 	sign = 1;
 	i = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+	while ((str[i] >= 9 && str[i] <= 13) || space(str[i]))
 		i++;
 	if (str[i] == '-')
 		sign = -1;

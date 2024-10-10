@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:21 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/08 15:16:57 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:30:25 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	is_in_quote(char *str, int end)
 {
 	char	c;
 
-	int(i) = 0;
-	int(count) = -1;
+	int (i) = 0;
+	int (count) = -1;
 	while (str[i] && i <= end)
 	{
 		if (str[i] == 39 || str[i] == '"')
@@ -89,12 +89,12 @@ t_remove	init_remove(void)
 
 char	**remove_quote_cmd(char *str)
 {
-	t_remove(r) = init_remove();
+	t_remove (r) = init_remove();
 	if (!r.dest)
 		return (NULL);
 	while (str[r.i - 1])
 	{
-		if ((str[r.i] == ' ' || !str[r.i]) && handle_quote(str, r.j, r.i) == -1)
+		if ((space(str[r.i]) || !str[r.i]) && handle_quote(str, r.j, r.i) == -1)
 		{
 			r.temp = ft_substr(str, r.j, r.i - r.j);
 			if (!r.temp)
@@ -106,7 +106,7 @@ char	**remove_quote_cmd(char *str)
 				r.dest = ft_realloc(r.dest, &r.size);
 			if (!r.dest)
 				return (NULL);
-			while (str[r.i] == ' ')
+			while (space(str[r.i]))
 				r.i++;
 			r.j = r.i;
 			free(r.temp);

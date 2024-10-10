@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 15:24:35 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/07 18:09:34 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:30:58 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_file_unclose(t_parsing *parsing)
 		if (files_operator(parsing->input[i]))
 		{
 			while (files_operator(parsing->input[i])
-				|| parsing->input[i] == ' ')
+				|| space(parsing->input[i]))
 			{
 				if (files_operator(parsing->input[i]))
 					count++;
@@ -82,7 +82,7 @@ int	files_error(t_parsing *parsing)
 	int (i) = 0;
 	while (parsing->input[i])
 	{
-		while (parsing->input[i] == ' ')
+		while (space(parsing->input[i]))
 			i++;
 		if (special_char_input(parsing) == FAIL)
 			return (-1);
@@ -93,7 +93,7 @@ int	files_error(t_parsing *parsing)
 			{
 				if (files_operator(parsing->input[i]))
 					i++;
-				while (parsing->input[i] == ' ')
+				while (space(parsing->input[i]))
 					i++;
 				if (files_operator(parsing->input[i]) || !parsing->input[i])
 					return (ft_print_error(parsing->input, i, 1), -1);
