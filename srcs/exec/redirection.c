@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:05:03 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/10 15:20:16 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/10 16:45:43 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	redirection(t_redirection *red, int bool)
 			here_doc(red);
 		red->file_fd = open(red->file, O_RDONLY);
 		dup2(red->file_fd, STDIN_FILENO);
+		close(red->file_fd);
 	}
 	else if (red->type == TRUNC)
 	{
