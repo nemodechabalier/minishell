@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:16:58 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/10 14:31:28 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/10 17:41:57 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static int	add_var(t_parsing *parsing, t_env *env, int position, t_data *data)
 		return (free(name), FAIL);
 	rest = take_rest(parsing->input, position);
 	parsing->input[position] = '\0';
-	return (make_join(parsing, value, rest, position));
+	return (free(name), make_join(parsing, value, rest, position));
 }
 
 int	var_env(t_parsing *parsing, t_env *env, t_data *data)

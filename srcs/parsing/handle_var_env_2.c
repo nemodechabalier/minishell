@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:34:44 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/10 14:33:10 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/10 17:43:12 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ char	*take_name_2(char *input, int position)
 	i = position + 1;
 	if (input[i] == '?')
 		return (ft_strdup("?"));
+	if (ft_isdigit(input[i]))
+		return (ft_substr(input, i, 1));
 	while (input[i - 1])
 	{
 		if (ft_isalnum(input[i]) == 0 && input[i] != '_')
