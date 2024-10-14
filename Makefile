@@ -74,7 +74,7 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	@$(eval FILLED=$(shell echo $$(($(COUNTER) * $(BAR_LENGTH) / $(TOTAL_FILES)))))
 	@$(eval FRAME=$(word $(shell echo $$(($(COUNTER) % 10 + 1))), $(FRAMES)))
 	@printf "\r\033[K$(BLUE)$(FRAME) Progress: [%-*s] %3d%%$(RESET)" $(BAR_LENGTH) "$$(printf '%0.s█' $$(seq 1 $(FILLED)))" $(PERCENTAGE)
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ 2>/dev/null
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ 
 	@sleep 0.05
 
 $(LIBFT):

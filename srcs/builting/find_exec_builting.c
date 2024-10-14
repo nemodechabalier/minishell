@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 11:01:30 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/09 17:23:09 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/14 11:13:57 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_exec_builting(t_cmd *cmd, t_data *data)
 	if (!ft_strncmp("env", cmd->cmd, 100))
 		return (ft_env(data), 1);
 	if (!ft_strncmp("exit", cmd->cmd, 100))
-		return (ft_exit(cmd), 1);
+		return (ft_exit(cmd, data), 1);
 	if (!ft_strncmp("export", cmd->cmd, 100))
 		return (ft_export(data, cmd), 1);
 	if (!ft_strncmp("pwd", cmd->cmd, 100))

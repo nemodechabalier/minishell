@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:30:39 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/09 17:48:53 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/14 11:46:10 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	do_minishell(t_parsing *parsing, t_data *data)
 			data->parsing->tokens) == SUCCESS && pipe_error(parsing) == SUCCESS)
 	{
 		exec_and_red(data, data->exec);
-		close_pipe(data->exec);
 		wait_child(data->exec, data);
+		close_pipe(data->exec);
 	}
 }
 

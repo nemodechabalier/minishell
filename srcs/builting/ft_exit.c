@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:29:24 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/10 14:33:36 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/14 11:13:17 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	correct_cmd(char *str)
 	return (0);
 }
 
-void	ft_exit(t_cmd *cmd)
+void	ft_exit(t_cmd *cmd, t_data *data)
 {
 	long	value;
 
@@ -83,6 +83,7 @@ void	ft_exit(t_cmd *cmd)
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(cmd->cmds[1], 2);
 		ft_putendl_fd(": numeric argument required", 2);
+		ft_free_data(&data);
 		exit(2);
 	}
 	if (cmd->cmds[1] && cmd->cmds[2])
@@ -90,5 +91,6 @@ void	ft_exit(t_cmd *cmd)
 			exit(2));
 	value = ft_atol(cmd->cmds[1]);
 	ft_putendl_fd("exit", 2);
+	ft_free_data(&data);
 	exit(value % 256);
 }
