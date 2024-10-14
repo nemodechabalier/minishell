@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:28:51 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/07 17:22:19 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:31:34 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,12 @@ int	remove_env(t_env **env, char *name, char *value)
 	while (next)
 	{
 		if (!ft_strncmp(name, next->name, ft_strlen(name)) && (!value
-				|| !ft_strncmp(value, next->value, ft_strlen(value))))
-			return (ft_free_1_env(env, next));
+				|| !ft_strncmp(value, next->value, ft_strlen(value) + 1)))
+		{
+			if (value)
+				free(value);
+			return (free(name), ft_free_1_env(env, next));
+		}
 		next = next->next;
 	}
 	return (free(name), free(value), SUCCESS);
@@ -78,6 +82,7 @@ int	ft_unset(t_cmd *cmd, t_data *data)
 	int	i;
 
 	i = 1;
+	data->exit_status = 0;
 	while (cmd->cmds[i])
 	{
 		if (take_name(cmd->cmds[i], data) == FAIL)

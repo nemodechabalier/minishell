@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:34:44 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/10 17:43:12 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:12:22 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char	*take_value(t_env *env, char *name, t_data *data)
 		return (ft_itoa(data->exit_status));
 	while (temp)
 	{
-		if (!ft_strncmp(temp->name, name, ft_strlen(name)))
+		if (!ft_strncmp(temp->name, name, ft_strlen(name) + 1))
 			return (ft_strdup(temp->value));
 		temp = temp->next;
 	}

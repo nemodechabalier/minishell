@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:25:13 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/09 17:22:23 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:40:00 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_pwd(t_data *data)
 {
 	char	cwd[PATH_MAX];
 
+	data->exit_status = 0;
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 		printf("%s\n", cwd);
 	else

@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:16:58 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/10 17:41:57 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:55:45 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,10 @@ int	var_env(t_parsing *parsing, t_env *env, t_data *data)
 			&& !is_here_doc(parsing->input, i))
 		{
 			if (add_var(parsing, env, i, data) == FAIL)
+			{
+				ft_putstr_fd("ERRORE MALLOC ENV", 2);
 				return (FAIL);
+			}
 			i = 0;
 		}
 		i++;

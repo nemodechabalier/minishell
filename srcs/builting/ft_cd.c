@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:50:10 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/14 11:38:06 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:38:43 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	add_path(t_env *env)
 	temp = env;
 	while (temp)
 	{
-		if (!ft_strncmp("PWD", temp->name, ft_strlen(temp->name)))
+		if (!ft_strncmp("PWD", temp->name, ft_strlen(temp->name) + 1))
 		{
 			new = ft_strdup(cwd);
 			if (!temp->value)
@@ -44,7 +44,7 @@ char	*ft_getenv(char *str, t_env *env)
 	temp = env;
 	while (temp)
 	{
-		if (!ft_strncmp(str, temp->name, ft_strlen(str)))
+		if (!ft_strncmp(str, temp->name, ft_strlen(str) + 1))
 			return (ft_strdup(temp->value));
 		temp = temp->next;
 	}
@@ -55,6 +55,7 @@ void	ft_cd(t_cmd *cmd, t_data *data)
 {
 	char	*path;
 
+	data->exit_status = 0;
 	path = cmd->cmds[1];
 	if (cmd->cmds[1] && cmd->cmds[2])
 		return (ft_putendl_fd("minishell : cd: too many arguments", 2));

@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:28:57 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/09 17:46:44 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:06:28 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	add_env(char *str, t_data *data)
 	temp = data->env;
 	while (temp)
 	{
-		if (!ft_strncmp(name, temp->name, ft_strlen(name)))
+		if (!ft_strncmp(name, temp->name, ft_strlen(name) + 1))
 		{
 			if (value[0] != '\0')
 				return (free(name), free(temp->value), temp->value = value,
@@ -72,7 +72,7 @@ int	valid_export(char *str)
 	int	i;
 
 	i = 0;
-	if (ft_isdigit(str[0]))
+	if (ft_isdigit(str[0]) || str[0] == '=')
 		return (0);
 	while (str[i] && str[i] != '=')
 	{
@@ -87,6 +87,7 @@ void	ft_export(t_data *data, t_cmd *cmd)
 {
 	int	i;
 
+	data->exit_status = 0;
 	i = 1;
 	if (!cmd->cmds[1])
 		ft_print_export(data);

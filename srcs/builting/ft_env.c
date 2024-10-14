@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:23:44 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/07 18:08:55 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:39:21 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_env(t_data *data)
 {
 	t_env	*temp;
 
+	data->exit_status = 0;
 	temp = data->env;
 	while (temp)
 	{

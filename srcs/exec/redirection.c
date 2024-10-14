@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:05:03 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/10 16:45:43 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:38:29 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ int	open_file(t_exec *exec, t_data *data)
 		while (current)
 		{
 			dup_2_std(data);
-			if (g_verif == 5)
-				return (dup_2_std(data), FAIL);
 			if (temp->red && redirection(current, 0) == FAIL)
 			{
 				temp->skip = 1;
@@ -89,6 +87,8 @@ int	open_file(t_exec *exec, t_data *data)
 					data->exit_status = 1;
 				break ;
 			}
+			if (g_verif == 5)
+				return (dup_2_std(data), FAIL);
 			current = current->next;
 		}
 		temp = temp->next;
@@ -98,7 +98,6 @@ int	open_file(t_exec *exec, t_data *data)
 
 int	exec_and_red(t_data *data, t_exec *exec)
 {
-	data->exit_status = 0;
 	creat_pipe(exec);
 	if (open_file(exec, data) == FAIL)
 		return (FAIL);
