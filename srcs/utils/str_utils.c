@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:07:27 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/07 17:37:52 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:19:28 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ char	**ft_realloc(char **strs, int *size)
 
 	i = 0;
 	*size = *size * 2;
-	new = malloc((*size) * sizeof(char *));
+	new = ft_calloc((*size), sizeof(char *));
 	if (!new)
 		return (NULL);
-	while (new[i])
+	while (strs[i])
 	{
 		new[i] = strs[i];
 		i++;

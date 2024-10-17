@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:27:14 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/10 16:33:46 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:20:00 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*creat_here_doc(void)
 	int		i;
 
 	i = 0;
-	name = ft_strdup(".here_doc");
+	name = ft_strdup("../here_doc");
 	if (!name)
 		return (NULL);
 	while (access(name, F_OK) != -1)
@@ -41,16 +41,15 @@ static char	*creat_here_doc(void)
 
 int	here_doc_2(t_redirection *red, char *line, int len)
 {
-	write(1, "> ", 2);
-	line = get_next_line(0);
+	line = readline("> ");
 	while (line)
 	{
-		if (ft_strncmp(line, red->stop, len) == 0 && line[len] == '\n')
+		if (!ft_strncmp(line, red->stop, len + 1))
 			break ;
-		write(1, "> ", 2);
 		write(red->file_fd, line, ft_strlen(line));
+		write(red->file_fd, "\n", 1);
 		free(line);
-		line = get_next_line(0);
+		line = readline("> ");
 	}
 	if (!line && g_verif != 5)
 	{

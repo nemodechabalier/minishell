@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:05:27 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/08 14:24:13 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:22:10 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,20 @@ int	add_flag_cmds(t_list *token, t_exec *exec)
 		return (FAIL);
 	while (split[i])
 		i++;
-	while (exec->cmd->cmds[i])
-		i++;
-	temp = malloc(sizeof(char *) * (i + 1));
+	while (exec->cmd->cmds[j])
+		j++;
+	temp = ft_calloc(sizeof(char *), (i + j + 1));
 	if (!temp)
 		return (ft_free_strs(split), FAIL);
 	i = 0;
 	j = 0;
-	while (exec->cmd->cmds[i++])
-		temp[i] = exec->cmd->cmds[i];
+	while (exec->cmd->cmds[i])
+		temp[i++] = exec->cmd->cmds[j++];
+	j = 0;
 	while (split[j])
 		temp[i++] = split[j++];
-	return (temp[i] = NULL, exec->cmd->cmds = temp, SUCCESS);
+	return (temp[i] = NULL, free(split), free(exec->cmd->cmds),
+		exec->cmd->cmds = temp, SUCCESS);
 }
 
 int	split_input(t_list *token, t_exec *exec, t_data *data)

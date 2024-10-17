@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_signal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clmanouk <clmanouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:30:02 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/10 15:30:04 by clmanouk         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:07:20 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ void	handle_sig(int signum)
 		{
 			close(STDIN_FILENO);
 			g_verif = 5;
+			is_here(1);
 		}
 		else
 		{
 			count_line(1);
-			ft_printf("\n");
+			if (is_here(2) == 0)
+				ft_printf("\n");
 			if (g_verif == 2 || g_verif == 5)
 				rl_on_new_line();
 			rl_replace_line("", 0);
@@ -44,8 +46,5 @@ void	handle_sig(int signum)
 		}
 	}
 	else if (signum == SIGQUIT)
-	{
-		printf("Quit (core dumped)\n");
 		close(STDIN_FILENO);
-	}
 }

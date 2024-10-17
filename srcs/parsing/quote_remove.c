@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:21 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/10 14:30:25 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:14:35 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	**remove_quote_cmd(char *str)
 			r.dest[r.count++] = remove_quote(r.temp);
 			if (!r.dest[r.count - 1])
 				return (ft_free_strs(r.dest), NULL);
-			if (r.count - 1 >= r.size - 1)
+			if (r.count - 1 >= r.size - 2)
 				r.dest = ft_realloc(r.dest, &r.size);
 			if (!r.dest)
 				return (NULL);

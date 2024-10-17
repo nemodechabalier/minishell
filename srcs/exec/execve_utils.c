@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:58:11 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/09 17:47:48 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:05:09 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,20 @@ void	wait_child(t_exec *exec, t_data *data)
 	while (temp)
 	{
 		if (temp->cmd && temp->cmd->bool == 1)
+		{
+			is_here(0);
 			temp->cmd->pid = waitpid(temp->cmd->pid, &status, 0);
+		}
 		temp = temp->next;
 	}
 	if (WIFEXITED(status) && data->exit_status == 0)
 		data->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status) && data->exit_status == 0)
 		data->exit_status = 128 + WTERMSIG(status);
+	if (data->exit_status == 131)
+		ft_putstr_fd("Quit (core dumped)\n", 2);
+	if (data->exit_status == 130 && g_verif == 150)
+		ft_putstr_fd("\n", 2);
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handle_sig);
 }

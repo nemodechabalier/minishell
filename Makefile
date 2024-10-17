@@ -11,7 +11,7 @@ BUILTIN_SRCS = ft_env.c ft_pwd.c ft_echo.c ft_cd.c ft_exit.c find_exec_builting.
 EXEC_SRCS = here_doc.c exec.c redirection.c execve_utils.c
 PARSING_SRCS = token_create.c token_utils.c error_parsing.c split_input.c lexer.c quote_remove.c special_case.c handle_var_env.c handle_var_env_2.c
 STRUCT_SRCS = exec_utils.c init_struct.c list_utils.c init_env.c
-UTILS_SRCS = free_func.c free_struct.c get_env.c str_utils.c count_line.c
+UTILS_SRCS = here_doc_open.c free_func.c free_struct.c get_env.c str_utils.c count_line.c
 SIGNAL_SRCS = handle_signal.c
 MAIN_SRCS = main.c
 
@@ -52,7 +52,6 @@ pre_compile:
 	@echo "$(MAGENTA)🚀 Launching Minishell Compilation Sequence 🚀$(RESET)"
 	@for i in 3 2 1; do \
 		printf "\r$(YELLOW)Compiling in $$i...$(RESET)"; \
-		sleep 1; \
 	done
 	@printf "\n$(CYAN)Initiating Awesome Compilation Process!$(RESET)\n"
 	@sleep 0.5

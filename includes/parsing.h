@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:16:06 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/10 15:20:31 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:21:31 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,7 @@ int								var_env(t_parsing *parsing, t_env *env,
 char							*take_end_of_l(char *str);
 int								space(char c);
 int								count_line(int bool);
+
+int								is_here(int bool);
 
 #endif

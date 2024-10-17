@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:28:51 by clmanouk          #+#    #+#             */
-/*   Updated: 2024/10/14 14:31:34 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:21:15 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ int	ft_free_1_env(t_env **env, t_env *next)
 {
 	t_env	*prev;
 
+	if (!next->next && !next->prev)
+		return (free(next->name), free(next->value), free(next), *env = NULL,
+			SUCCESS);
 	if (!next->next)
 	{
 		prev = next->prev;

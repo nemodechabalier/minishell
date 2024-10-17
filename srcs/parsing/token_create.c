@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.c                                            :+:      :+:    :+:   */
+/*   token_create.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:27:28 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/10 14:29:51 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:42:03 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,26 +74,26 @@ int	create_token_files(t_parsing *parsing, int *i, int j)
 
 int	pars_token(t_parsing *parsing)
 {
-	int	j;
-
+	int (j) = 0;
 	int (i) = 0;
 	while (parsing->input[i])
 	{
 		while (space(parsing->input[i]))
 			i++;
 		j = i;
-		if (parsing->input[i] == '\0')
-			return (SUCCESS);
 		if (files_operator(parsing->input[i]))
-			create_token_files(parsing, &i, j);
+		{
+			if (create_token_files(parsing, &i, j) == FAIL)
+				return (FAIL);
+		}
 		else if (parsing->input[i] == '|')
 		{
 			if (parsing->input[i + 1] == '|')
-				return (ft_putendl_fd("error || \n", 2), ERROR_UNCLOSE);
+				return (ft_putendl_fd("error ||", 2), ERROR_UNCLOSE);
 			if (create_token(parsing, i + 1, j, 1) == FAIL)
 				return (FAIL);
 		}
-		else if (create_token_cmd(parsing, &i, j) == FAIL)
+		else if (parsing->input[i] && create_token_cmd(parsing, &i, j) == FAIL)
 			return (FAIL);
 		if (parsing->input[i])
 			i++;

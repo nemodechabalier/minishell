@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:05:03 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/14 13:38:29 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:09:22 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	open_file(t_exec *exec, t_data *data)
 	t_redirection	*current;
 
 	temp = exec;
+	data->exit_status = 0;
 	while (temp)
 	{
 		current = temp->red;
@@ -93,7 +94,7 @@ int	open_file(t_exec *exec, t_data *data)
 		}
 		temp = temp->next;
 	}
-	return (g_verif = 0, SUCCESS);
+	return (g_verif = 150, SUCCESS);
 }
 
 int	exec_and_red(t_data *data, t_exec *exec)

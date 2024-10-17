@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:44:52 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/10/09 16:15:19 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:01:32 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	before_exec(t_exec *exec, t_data *data)
 		return (FAIL);
 	else if (exec->cmd->pid == 0)
 	{
+		is_here(0);
 		dup_pipe(exec);
 		temp = exec->red;
 		while (temp)
@@ -79,6 +80,8 @@ int	before_exec(t_exec *exec, t_data *data)
 			ft_exec(exec->cmd, data);
 		}
 	}
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
 	return (SUCCESS);
 }
 
